@@ -6,7 +6,7 @@ const ImageSchema = new Schema({
   filename: String,
   contentType: String,
   post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
-  comment: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
+  comment: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
 });
 
 const Image = mongoose.model("Image", ImageSchema);
