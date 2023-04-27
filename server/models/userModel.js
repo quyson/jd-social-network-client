@@ -7,7 +7,11 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   dob: { type: Date, required: true },
   private: { type: Boolean, required: true },
-  profilePicture: { type: mongoose.Schema.Types.ObjectId, ref: "Image" },
+  profilePicture: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image",
+    default: null,
+  },
   sex: { type: String, enum: ["Male", "Female", "Else"], default: "Else" },
   friendList: { type: Array, required: true, default: [] },
   friendRequest: { type: Array, required: true, default: [] },

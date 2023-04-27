@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const passport = require("passport");
 require("dotenv").config();
+const cors = require("cors");
+const apiRouter = require("./routes/apiRouter");
 
 const dbURI = process.env.dbURI;
 
@@ -16,3 +18,6 @@ mongoose
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+app.use(apiRouter);
