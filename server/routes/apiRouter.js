@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const Post = require("../models/postModel");
+const Comment = require("../models/commentModel");
 
 router.post("/signup", (req, res) => {
   console.log(req.body);
@@ -22,11 +24,13 @@ router.post("/signup", (req, res) => {
     });
 });
 
-router.get("/signup", (req, res) => {
-  const newUser = new User({
-    first_name: "Taro",
-  });
-  newUser.save().then((result) => console.log("lol"));
+router.post("/posts", (req, res) => {
+  const newPost = new Post(req.body);
+  newPost.save().then((result) => res.send("GOOD POST"));
 });
 
+router.post("/comments", (req, res) => {
+  const newComment = new Comment(req.body);
+  newComment.save().then((result) => res.send("GOOD COMMMENT"));
+});
 module.exports = router;
