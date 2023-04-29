@@ -1,5 +1,9 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+const secretOrKey = process.env.secretOrKey;
 
 const signup = (req, res, next) => {
   User.find({ username: req.body.username }).then((result) => {
@@ -30,4 +34,31 @@ const signup = (req, res, next) => {
   });
 };
 
-module.exports = { signup };
+const login = (req, res) => {
+  User.findOne({ username: req.body.username }).then((result) => {
+    if (!result) {
+      res.status(401).send({
+        success: false,
+        message: "Cannot find User!",
+      });
+    }
+    bcrypt.compare(req.body.password, result.password, (err, match) => {
+      if (match) {
+        const payload = { id: result.id, username: req.body.username };
+        const token = jwt.sign(payload, secretOrKey, { expiresIn: "1d" });
+        return res.status(200).send({
+          success: true,
+          message: "Logged in successfully",
+          token: "Bearer " + token,
+        });
+      } else {
+        return res.status(401).send({
+          success: false,
+          message: "Incorrect Password",
+        });
+      }
+    });
+  });
+};
+
+module.exports = { signup, login };
