@@ -44,7 +44,7 @@ const login = (req, res) => {
     }
     bcrypt.compare(req.body.password, result.password, (err, match) => {
       if (match) {
-        const payload = { id: result.id, username: req.body.username };
+        const payload = { id: result.id };
         const token = jwt.sign(payload, secretOrKey, { expiresIn: "1d" });
         return res.status(200).send({
           success: true,
