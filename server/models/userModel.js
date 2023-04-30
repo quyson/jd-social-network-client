@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   last_name: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  dob: { type: Date, required: true },
+  dob: { type: Date, default: null },
   private: { type: Boolean, required: true },
   profilePicture: {
     type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +22,7 @@ const UserSchema = new Schema({
     enum: ["original", "facebook"],
     default: "original",
   },
+  facebookId: { type: String, unique: true, default: null },
 });
 
 UserSchema.virtual("name").get(function () {

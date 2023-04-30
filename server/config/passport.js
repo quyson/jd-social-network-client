@@ -47,16 +47,19 @@ passport.use(
           if (user) {
             return cb(null, user);
           }
+          const nameArray = profile.displayName.split(" ");
+          const firstName = nameArray[0];
+          const lastName = nameArray[nameArray.length - 1];
           const newUser = new User({
             username: profile.displayName,
-            first_name: profile.displayName,
-            last_name: profile.displayName,
-            password: null,
-            dob: profile.birthday,
+            first_name: firstName,
+            last_name: lastName,
+            password: "No Password",
             facebookId: profile.id,
             sex: profile.gender,
-            profilePicture: profile.photos,
-            userType: "Facebook",
+            photos: profile.photos,
+            userType: "facebook",
+            private: true,
           });
           newUser
             .save()

@@ -26,11 +26,18 @@ router.get(
 );
 
 router.get("/success", (req, res) => {
-  res.send({ message: "You are in through Facebook" });
+  res.send({ message: req.user });
 });
 
 router.get("/fail", (req, res) => {
   res.send({ message: "You are NOT in through Facebook" });
 });
+
+router.get(
+  "/check",
+  passport.authenticate("facebook", { session: false }, (req, res) => {
+    res.send({ message: "fuck u" });
+  })
+);
 
 module.exports = router;
