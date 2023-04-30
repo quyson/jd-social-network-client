@@ -28,14 +28,61 @@ passport.use(
 passport.use(
   new FacebookStrategy(
     {
-      clientID: FACEBOOK_APP_ID,
-      clientSecret: FACEBOOK_APP_SECRET,
+      clientID: "2205879946273416",
+      clientSecret: "ab61b08667d3376166f52f98957b5c24",
       callbackURL: "http://localhost:8000/auth/facebook/callback",
+      profileFields: [
+        "id",
+        "displayName",
+        "photos",
+        "email",
+        "gender",
+        "name",
+        "birthday",
+      ],
     },
     function (accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
+      User.findOne({ facebookId: profile.id })
+        .then((user) => {
+          if (user) {
+            return cb(null, user);
+          }
+          const newUser = new User({
+            username: profile.displayName,
+            first_name: profile.displayName,
+            last_name: profile.displayName,
+            password: null,
+            dob: profile.birthday,
+            facebookId: profile.id,
+            sex: profile.gender,
+            profilePicture: profile.photos,
+            userType: "Facebook",
+          });
+          newUser
+            .save()
+            .then((result) => {
+              return cb(null, newUser);
+            })
+            .catch((err) => {
+              return cb(err);
+            });
+        })
+        .catch((err) => {
+          return cb(err);
+        });
     }
   )
 );
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async function (id, done) {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});

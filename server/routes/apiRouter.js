@@ -16,4 +16,21 @@ router.get(
   }
 );
 
+router.get("/auth/facebook", passport.authenticate("facebook"));
+router.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/success",
+    failureRedirect: "/fail",
+  })
+);
+
+router.get("/success", (req, res) => {
+  res.send({ message: "You are in through Facebook" });
+});
+
+router.get("/fail", (req, res) => {
+  res.send({ message: "You are NOT in through Facebook" });
+});
+
 module.exports = router;
