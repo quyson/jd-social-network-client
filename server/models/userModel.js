@@ -6,6 +6,7 @@ const UserSchema = new Schema({
   last_name: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
+  bio: { type: String },
   dob: { type: Date, default: null },
   private: { type: Boolean, required: true },
   profilePicture: {
