@@ -5,8 +5,8 @@ const Comment = require("../models/commentModel");
 const getPost = async (req, res) => {
   try {
     const [post, comments] = await Promise.all([
-      Post.findById(req.params.id),
-      Comment.find({ post: req.params.id }),
+      Post.findById(req.params.id).populate("user"),
+      Comment.find({ post: req.params.id }).populate("user"),
     ]);
     res.send({
       post: post,
