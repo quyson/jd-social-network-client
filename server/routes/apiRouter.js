@@ -6,17 +6,20 @@ const Comment = require("../models/commentModel");
 const authentication = require("../controllers/authentication");
 const passport = require("passport");
 
-function isLoggedIn(req, res, next) {
+/*function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     console.log("gotit");
     return next();
   }
+  console.log("breh");
   res.redirect("/");
-}
+}*/
 
-router.get("/", (req, res) => {
-  message: "hello";
-});
+router.get("/", (req, res) =>
+  res.send({
+    message: "hello",
+  })
+);
 
 router.post("/signup", authentication.signup);
 router.post("/login", authentication.login);
@@ -46,7 +49,25 @@ router.get("/fail", (req, res) => {
 });
 
 router.get("/check", isLoggedIn, (req, res) => {
-  res.send({ message: "fuck u" });
+  res.send({ user: req.user, message: "HELLO" });
 });
 
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    passport.authenticate("jwt", { session: false }, (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.redirect("/");
+      } else {
+        req.user = user;
+        return next();
+      }
+    })(req, res, next);
+  }
+}
