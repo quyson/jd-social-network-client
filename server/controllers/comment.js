@@ -23,4 +23,30 @@ const createComment = (req, res) => {
     });
 };
 
-module.exports = { createComment };
+const likeComment = (req, res) => {
+  Comment.findById(req.params.id)
+    .then((result) => {
+      if (result.likeList.includes(req.user.id)) {
+        return;
+      }
+      const updatedLikes = result.likes + 1;
+      result.likeList.push(req.user.id);
+      result.likes = updatedLikes;
+      result
+        .save()
+        .then((result) => {
+          res.send({
+            success: true,
+            likes: result.likes,
+          });
+        })
+        .catch((err) => {
+          next(err);
+        });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+module.exports = { createComment, likeComment };

@@ -65,6 +65,7 @@ router.get("/check", isLoggedIn, (req, res) => {
 router.get("/post:id", isLoggedIn, post.getPost);
 router.post("/post/like/:id", isLoggedIn, post.likePost);
 router.post("/post/createComment/:id", isLoggedIn, comment.createComment);
+router.post("/comment/like/:id", isLoggedIn, comment.likeComment);
 
 module.exports = router;
 
@@ -77,7 +78,6 @@ else we can just send back persons name, bio, profile picture etc..
 route.post comment:id/like - same thing as above
 route.post createPost - create a new post
 route.post createPostFriends - write a post on a friends wall
-route.post post:id/comment - create a new comment
 
 AFTER WE FINISH BASIC STUFF WE CAN FOCUS ON ADDING PICTURYES/ JOINING CROUPS/ DIFFERENT LIKES
 */
