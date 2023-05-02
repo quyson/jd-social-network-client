@@ -14,14 +14,18 @@ const getUserProfile = async (req, res) => {
         "private",
         "friendList",
       ]),
-      Post.find({ directedTo: req.user.id }).populate("picture"),
+      Post.find({ directedTo: req.user.id }).populate({
+        path: "users",
+        select: "first_name last_name username",
+      }),
     ]);
 
     const postIds = posts.map((post) => post._id);
 
-    const comments = await Comment.find({ post: { $in: postIds } }).populate(
-      "user"
-    );
+    const comments = await Comment.find({ post: { $in: postIds } }).populate({
+      path: "users",
+      select: "first_name last_name username createdAt",
+    });
 
     const postsWithComments = posts.map((post) => {
       const postComments = comments.filter((comment) =>

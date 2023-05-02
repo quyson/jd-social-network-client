@@ -52,6 +52,8 @@ router.get("/", (req, res) => {
   res.send({ message: "hello" });
 });
 
+router.get("/logout", authentication.logout);
+
 router.get("/profile", isLoggedIn, profile.getUserProfile);
 
 router.get("/check", isLoggedIn, (req, res) => {
@@ -60,12 +62,10 @@ router.get("/check", isLoggedIn, (req, res) => {
 
 module.exports = router;
 
-/* route.post sign up
-route. post login
+/* 
 route.get homepage ~ takes in the latest posts of all of ur friends and orders it from latest to oldest 
 we need to mongo search friends which is derived from user id in req.user, then mongo search posts with each id, then comments for each posts
 as the user scrolls down, we search for more. easier said than done probably the hardest paget to code,
-route.get profile: searches up everything about a user and populates a page for them.
 route.get post:id searches up specific post and populates it with related comments
 route.get page:id dynamic page which will load another user's page and can be found in the search bar, we can have middleware to see if current user is friends with them or not
 else we can just send back persons name, bio, profile picture etc..

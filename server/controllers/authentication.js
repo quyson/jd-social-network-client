@@ -61,4 +61,9 @@ const login = (req, res) => {
   });
 };
 
-module.exports = { signup, login };
+const logout = (req, res) => {
+  req.logout();
+  res.redirect("/");
+};
+
+module.exports = { signup, login, logout };
