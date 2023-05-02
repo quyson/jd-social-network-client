@@ -6,6 +6,7 @@ const Comment = require("../models/commentModel");
 const authentication = require("../controllers/authentication");
 const passport = require("passport");
 const profile = require("../controllers/profile");
+const post = require("../controllers/post");
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -52,13 +53,16 @@ router.get("/", (req, res) => {
   res.send({ message: "hello" });
 });
 
-router.get("/logout", authentication.logout);
+router.get("/logout", isLoggedIn, authentication.logout);
 
 router.get("/profile", isLoggedIn, profile.getUserProfile);
 
 router.get("/check", isLoggedIn, (req, res) => {
   res.send({ user: req.user, message: "HELLO" });
 });
+
+router.get("/post:id", isLoggedIn, post.getPost);
+router.post("/post/like/:id", isLoggedIn, post.likePost);
 
 module.exports = router;
 
@@ -70,7 +74,7 @@ route.get post:id searches up specific post and populates it with related commen
 route.get page:id dynamic page which will load another user's page and can be found in the search bar, we can have middleware to see if current user is friends with them or not
 else we can just send back persons name, bio, profile picture etc..
 route.post post:id/like - adding a like, but will check if you've liked it or not.
-route.post post:id/comment/like - same thing as above
+route.post comment:id/like - same thing as above
 route.post createPost - create a new post
 route.post createPostFriends - write a post on a friends wall
 route.post post:id/comment - create a new comment

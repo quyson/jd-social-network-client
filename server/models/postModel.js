@@ -10,7 +10,7 @@ const PostSchema = new Schema({
     ref: "User",
   },
   user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
-  likeLst: { type: Array, required: true, default: [] },
+  likeList: { type: Array, required: true, default: [] },
   picture: { type: mongoose.Schema.Types.ObjectId, ref: "Image" },
 });
 
