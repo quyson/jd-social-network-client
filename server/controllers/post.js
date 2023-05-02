@@ -17,6 +17,26 @@ const getPost = async (req, res) => {
   }
 };
 
+const createPost = async (req, res) => {
+  const newPost = new Post({
+    message: req.body.message,
+    likes: 0,
+    directedTo: req.user.id,
+    user: req.user.id,
+    likeList: [],
+  });
+  try {
+    const result = await newPost.save();
+    res.send({
+      success: true,
+      message: "Created post sucessfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 const likePost = (req, res) => {
   Post.findById(req.params.id)
     .then((result) => {
@@ -43,4 +63,4 @@ const likePost = (req, res) => {
     });
 };
 
-module.exports = { getPost, likePost };
+module.exports = { getPost, likePost, createPost };
