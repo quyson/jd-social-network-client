@@ -8,6 +8,7 @@ const passport = require("passport");
 const profile = require("../controllers/profile");
 const post = require("../controllers/post");
 const comment = require("../controllers/comment");
+const search = require("../controllers/search");
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -62,6 +63,8 @@ router.get("/check", isLoggedIn, (req, res) => {
   res.send({ user: req.user, message: "HELLO" });
 });
 
+router.post("/search", isLoggedIn, search.search);
+router.get("/search/:query", isLoggedIn, search.searchResults);
 router.get("/page/:id", isLoggedIn, profile.getOthersPage);
 router.get("/post:id", isLoggedIn, post.getPost);
 router.post("/post/like/:id", isLoggedIn, post.likePost);
