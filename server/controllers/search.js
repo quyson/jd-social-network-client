@@ -16,9 +16,13 @@ const searchResults = (req, res) => {
       ],
     },
     ["first_name", "last_name", "username"]
-  ).then((result) => {
-    res.send({ searchResults: result });
-  });
+  )
+    .then((result) => {
+      res.send({ searchResults: result });
+    })
+    .catch((error) => {
+      return next(error);
+    });
 };
 
 /* search bar will be a form that sends post request. this protects sensitive information. 

@@ -80,6 +80,11 @@ const getOthersPage = async (req, res) => {
         resultUser: user,
         resultPost: postsWithComments,
       });
+    } else {
+      res.send({
+        success: true,
+        resultUser: user,
+      });
     }
   } catch (error) {
     return next(error);
