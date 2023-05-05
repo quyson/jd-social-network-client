@@ -10,6 +10,8 @@ const post = require("../controllers/post");
 const comment = require("../controllers/comment");
 const search = require("../controllers/search");
 
+/* timeline router is gonna make a call for latest posts in user friend list, check if directed to is same as 
+user then that would count as a post, whereas different direct and user would have the write on a wall display*/
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -28,6 +30,7 @@ function isLoggedIn(req, res, next) {
   }
 }
 
+router.get("timeline", isLoggedIn, post.timeline);
 router.post("/signup", authentication.signup);
 router.post("/login", authentication.login);
 router.get(

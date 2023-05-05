@@ -2,6 +2,15 @@ const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 
+const timeline = async (req, res) => {
+  const userFriendList = await User.findById(req.user.id, "friendList");
+  const friendIds = userFriendList.map((element) => element.id);
+  const friendPosts = await Post({ _id: { $in: friendIds } })
+    .sort("-timestamp")
+    .limit(25);
+  res.send({ friendPosts: friendPosts });
+};
+
 const getPost = async (req, res) => {
   try {
     const [post, comments] = await Promise.all([
@@ -83,4 +92,4 @@ const likePost = (req, res) => {
     });
 };
 
-module.exports = { getPost, likePost, createPost, createPostFriends };
+module.exports = { getPost, likePost, createPost, createPostFriends, timeline };
