@@ -17,12 +17,6 @@ const UserSchema = new Schema({
   sex: { type: String, enum: ["Male", "Female", "Else"], default: "Else" },
   friendList: { type: Array, required: true, default: [] },
   friendRequest: { type: Array, required: true, default: [] },
-  userType: {
-    type: String,
-    required: true,
-    enum: ["original", "facebook"],
-    default: "original",
-  },
   facebookId: { type: String, unique: true, default: null },
 });
 
