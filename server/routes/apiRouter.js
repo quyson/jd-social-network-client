@@ -58,7 +58,7 @@ router.get("/", (req, res) => {
   res.send({ message: "hello" });
 });
 
-router.get("/logout", isLoggedIn, authentication.logout);
+router.post("/logout", isLoggedIn, authentication.logout);
 
 router.get("/profile", isLoggedIn, profile.getUserProfile);
 
