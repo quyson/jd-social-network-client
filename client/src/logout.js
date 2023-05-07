@@ -8,10 +8,8 @@ const Logout = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    console.log("y");
     if (localStorage.getItem("token")) {
-      console.log("u");
-      localStorage.setItem("token", null);
+      localStorage.removeItem("token");
       navigate("/");
     } else {
       const result = await axios.post("http://localhost:8000/logout");
@@ -26,7 +24,7 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={(e) => handleLogout}>Log Out</button>
+      <button onClick={(e) => handleLogout(e)}>Log Out</button>
     </div>
   );
 };
