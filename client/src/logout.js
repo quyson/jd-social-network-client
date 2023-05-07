@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const Logout = () => {
   const [navigate, setNavigate] = useState(false);
@@ -32,4 +33,4 @@ const Logout = () => {
   );
 };
 
-export default Logout = {};
+export default Logout;

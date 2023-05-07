@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState(null);
