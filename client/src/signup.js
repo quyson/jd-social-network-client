@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState(null);
@@ -9,9 +10,12 @@ const Signup = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [cPassword, setCPassword] = useState(null);
+  const [privacy, setPrivate] = useState(true);
   const [dob, setDob] = useState(null);
-  const [sex, setSex] = useState(null);
-  const [navigate, setNavigate] = useState(false);
+  const [sex, setSex] = useState("Male");
+  const [success, setSuccess] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,17 +30,17 @@ const Signup = () => {
       password: password,
       sex: sex,
       dob: dob,
+      private: privacy,
     });
-
-    if (result.success) {
-      setNavigate(true);
-    }
-
-    if (navigate) {
-      window.location.reload();
-      return <Navigate to={"/"} />;
-    }
+    console.log(result);
+    setSuccess(result.data.success);
   };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/");
+    }
+  }, [success]);
 
   return (
     <div>
@@ -73,6 +77,15 @@ const Signup = () => {
           type={"password"}
           onChange={(e) => setCPassword(e.target.value)}
         ></input>
+        <label for="private">Privacy</label>
+        <select
+          id="private"
+          name="private"
+          onChange={(e) => setPrivate(e.target.value)}
+        >
+          <option value={true}>True</option>
+          <option value={false}>False</option>
+        </select>
         <label for="dob">Date of Birth</label>
         <input
           type={"date"}
