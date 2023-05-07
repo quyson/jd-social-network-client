@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
-  const [navigate, setNavigate] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,13 +17,11 @@ const Login = () => {
     });
     console.log(response.data.token);
     localStorage.setItem("token", response.data.token);
-    setNavigate(true);
+    if (response.data.success) {
+      navigate("/check");
+    }
   };
 
-  if (navigate) {
-    window.location.reload();
-    return <Navigate to={"/check"} />;
-  }
   return (
     <div>
       <div>

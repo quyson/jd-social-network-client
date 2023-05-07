@@ -7,10 +7,14 @@ const Check = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/check").then((result) => {
-      setUser(result.user);
-      setMessage(result.message);
-    });
+    const token = localStorage.getItem("token");
+    console.log(token);
+    axios
+      .get("http://localhost:8000/check", { headers: { Authorization: token } })
+      .then((result) => {
+        setUser(result.data.user.username);
+        setMessage(result.data.message);
+      });
   }, []);
   return (
     <div>

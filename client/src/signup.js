@@ -13,7 +13,6 @@ const Signup = () => {
   const [privacy, setPrivate] = useState(true);
   const [dob, setDob] = useState(null);
   const [sex, setSex] = useState("Male");
-  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -32,15 +31,11 @@ const Signup = () => {
       dob: dob,
       private: privacy,
     });
-    console.log(result);
-    setSuccess(result.data.success);
-  };
 
-  useEffect(() => {
-    if (success) {
+    if (result.data.success) {
       navigate("/");
     }
-  }, [success]);
+  };
 
   return (
     <div>
