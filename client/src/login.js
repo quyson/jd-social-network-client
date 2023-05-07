@@ -21,7 +21,7 @@ const Login = () => {
 
   if (navigate) {
     window.location.reload();
-    return <Navigate to={"/timeline"} />;
+    return <Navigate to={"/check"} />;
   }
   return (
     <div>
