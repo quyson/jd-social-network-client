@@ -4,6 +4,7 @@ import Login from "./login";
 import Signup from "./signup";
 import Logout from "./logout";
 import Check from "./check";
+import Profile from "./profile";
 import Facebook from "./facebook";
 
 const Router = () => {
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/check" element={<Check />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </BrowserRouter>
   );

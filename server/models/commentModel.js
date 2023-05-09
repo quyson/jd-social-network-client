@@ -7,7 +7,11 @@ const CommentSchema = new Schema({
   likeList: { type: Array, required: true, default: [] },
   user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   post: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Post" },
-  picture: { type: mongoose.Schema.Types.ObjectId, ref: "Image" },
+  picture: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image",
+    default: null,
+  },
 });
 
 const Comment = mongoose.model("Comment", CommentSchema);

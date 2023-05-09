@@ -11,7 +11,11 @@ const PostSchema = new Schema({
   },
   user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   likeList: { type: Array, required: true, default: [] },
-  picture: { type: mongoose.Schema.Types.ObjectId, ref: "Image" },
+  picture: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image",
+    default: null,
+  },
 });
 
 const Post = mongoose.model("Post", PostSchema);

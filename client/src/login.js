@@ -18,7 +18,7 @@ const Login = () => {
     console.log(response.data.token);
     localStorage.setItem("token", response.data.token);
     if (response.data.success) {
-      navigate("/check");
+      navigate("/profile");
     }
   };
 
