@@ -32,12 +32,31 @@ const deleteFriendRequest = (req, res) => {
     });
 };
 
-const acceptFriendRequest = (req, res) => {
-  User.findByIdAndUpdate(
-    req.user.id,
-    { $push: { friendList: req.params.id } },
-    { new: true }
-  );
+const acceptFriendRequest = async (req, res) => {
+  try {
+    const [addToFriends, deleteOffRequest] = await Promise.all([
+      User.findByIdAndUpdate(
+        req.user.id,
+        { $push: { friendList: req.params.id } },
+        { new: true }
+      ),
+      User.findByIdAndDelete(
+        req.user.id,
+        { $pull: { friendRequests: req.params.id } },
+        { new: true }
+      ),
+    ]);
+    res.send({
+      success: true,
+      message: "Successfully Added Friend!",
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-module.exports = { sendFriendRequest, deleteFriendRequest };
+module.exports = {
+  sendFriendRequest,
+  deleteFriendRequest,
+  acceptFriendRequest,
+};
