@@ -91,4 +91,7 @@ const getOthersPage = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, getOthersPage };
+module.exports = {
+  getUserProfile,
+  getOthersPage,
+};

@@ -4,6 +4,7 @@ import Login from "./login";
 import Signup from "./signup";
 import Logout from "./logout";
 import Check from "./check";
+import Facebook from "./facebook";
 
 const Router = () => {
   return (

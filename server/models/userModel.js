@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment");
 
 const UserSchema = new Schema({
   first_name: { type: String, required: true },
@@ -16,12 +17,15 @@ const UserSchema = new Schema({
   },
   sex: { type: String, enum: ["Male", "Female", "Else"], default: "Else" },
   friendList: { type: Array, required: true, default: [] },
-  friendRequest: { type: Array, required: true, default: [] },
-  facebookId: { type: String, unique: true, default: null },
+  friendRequests: { type: Array, required: true, default: [] },
 });
 
 UserSchema.virtual("name").get(function () {
   return `${this.first_name} ${this.last_name}`;
+});
+
+UserSchema.virtual("formattedDob").get(function () {
+  return this.dob ? moment(this.dob).format("YYYY-MM-DD") : null;
 });
 
 const User = mongoose.model("User", UserSchema);

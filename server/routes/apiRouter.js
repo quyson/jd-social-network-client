@@ -9,6 +9,7 @@ const profile = require("../controllers/profile");
 const post = require("../controllers/post");
 const comment = require("../controllers/comment");
 const search = require("../controllers/search");
+const request = require("../controllers/request");
 
 /* timeline router is gonna make a call for latest posts in user friend list, check if directed to is same as 
 user then that would count as a post, whereas different direct and user would have the write on a wall display*/
@@ -21,7 +22,8 @@ function isLoggedIn(req, res, next) {
         return next(err);
       }
       if (!user) {
-        res.redirect("/");
+        console.log("Can't find User");
+        return next(err);
       } else {
         req.user = user;
         return next();
@@ -37,18 +39,18 @@ router.get(
   "/protected",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send({ currentUser: req.user, message: "LOl" });
+    res.send({ user: req.user, message: "LOl" });
   }
 );
 
-router.get("/auth/facebook", passport.authenticate("facebook"));
+/*router.post("/auth/facebook", passport.authenticate("facebook"));
 router.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "/success",
-    failureRedirect: "/",
+    failureRedirect: "http://localhost:3000/",
+    successRedirect: "http://localhost:3000/check",
   })
-);
+);*/
 
 router.get("/success", (req, res) => {
   res.send({ message: req.user });
@@ -69,21 +71,18 @@ router.get("/check", isLoggedIn, (req, res) => {
 router.post("/search", isLoggedIn, search.search);
 router.get("/search/:query", isLoggedIn, search.searchResults);
 router.get("/page/:id", isLoggedIn, profile.getOthersPage);
+router.patch("/page/request/:id", isLoggedIn, request.sendFriendRequest);
 router.get("/post:id", isLoggedIn, post.getPost);
 router.post("/post/like/:id", isLoggedIn, post.likePost);
 router.post("/post/createComment/:id", isLoggedIn, comment.createComment);
 router.post("/comment/like/:id", isLoggedIn, comment.likeComment);
+router.delete("/request/delete/:id", isLoggedIn, request.deleteFriendRequest);
+router.patch("/request/accept/:id/");
 router.post("/createPost", isLoggedIn, post.createPost);
 router.post("page/createPost/:id", isLoggedIn, post.createPostFriends);
 
 module.exports = router;
 
 /* 
-route.get homepage ~ takes in the latest posts of all of ur friends and orders it from latest to oldest 
-we need to mongo search friends which is derived from user id in req.user, then mongo search posts with each id, then comments for each posts
-as the user scrolls down, we search for more. easier said than done probably the hardest paget to code,
-route.get page:id dynamic page which will load another user's page and can be found in the search bar, we can have middleware to see if current user is friends with them or not
-else we can just send back persons name, bio, profile picture etc..
-
 AFTER WE FINISH BASIC STUFF WE CAN FOCUS ON ADDING PICTURYES/ JOINING CROUPS/ DIFFERENT LIKES
 */
