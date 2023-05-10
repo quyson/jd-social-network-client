@@ -15,7 +15,7 @@ const getUserProfile = async (req, res) => {
         "friendList",
       ]),
       Post.find({ directedTo: req.user.id }).populate({
-        path: "users",
+        path: "user",
         select: "first_name last_name username",
       }),
     ]);
