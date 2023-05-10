@@ -23,7 +23,7 @@ const getUserProfile = async (req, res) => {
     const postIds = posts.map((post) => post._id);
 
     const comments = await Comment.find({ post: { $in: postIds } }).populate({
-      path: "users",
+      path: "user",
       select: "first_name last_name username createdAt",
     });
 

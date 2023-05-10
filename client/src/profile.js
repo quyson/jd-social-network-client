@@ -12,6 +12,7 @@ const Profile = () => {
   const [dob, setDob] = useState(null);
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [writeComment, setWriteComment] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,6 +33,26 @@ const Profile = () => {
       });
   }, []);
 
+  const handleComment = (postId, e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    console.log(postId);
+    axios
+      .post(
+        `http://localhost:8000/post/createComment/${postId}`,
+        { message: writeComment },
+        {
+          headers: { Authorization: token },
+        }
+      )
+      .then((result) => {
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <CreatePost />
@@ -42,7 +63,31 @@ const Profile = () => {
       </div>
       {posts
         ? posts.map((element) => {
-            return <div>{element.message}</div>;
+            return (
+              <div>
+                <div>
+                  {element.user.username} - {element.user.first_name}{" "}
+                  {element.user.last_name}
+                </div>
+                <div>{element.message}</div>
+                <div>{element.likes}</div>
+                {element.comments
+                  ? element.comments.map((comment) => {
+                      return <div>{comment.message}</div>;
+                    })
+                  : null}
+                <div>
+                  <form onSubmit={(e) => handleComment(element._id, e)}>
+                    <textarea
+                      placeholder="Write a comment"
+                      name="message"
+                      onChange={(e) => setWriteComment(e.target.value)}
+                    ></textarea>
+                    <button>Comment</button>
+                  </form>
+                </div>
+              </div>
+            );
           })
         : null}
     </div>
