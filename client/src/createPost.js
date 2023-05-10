@@ -11,7 +11,7 @@ const CreatePost = () => {
     axios
       .post(
         "http://localhost:8000/createPost",
-        { messsage: message },
+        { message: message },
         {
           headers: { Authorization: token },
         }
@@ -24,17 +24,15 @@ const CreatePost = () => {
       });
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          name="message"
-          id="message"
-          placeholder="What's on your mind?"
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
-        <button>Post</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <textarea
+        name="message"
+        id="message"
+        placeholder="What's on your mind?"
+        onChange={(e) => setMessage(e.target.value)}
+      ></textarea>
+      <button>Post</button>
+    </form>
   );
 };
 

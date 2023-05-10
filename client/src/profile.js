@@ -11,7 +11,6 @@ const Profile = () => {
   const [bio, setBio] = useState(null);
   const [dob, setDob] = useState(null);
   const [sex, setSex] = useState(null);
-  const [postVis, setPostVis] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -35,13 +34,15 @@ const Profile = () => {
 
   return (
     <div>
-      <div>{firstName}</div>
-      <div>{lastName}</div>
-      <div>{username}</div>
       <CreatePost />
+      <div>
+        <div>{firstName}</div>
+        <div>{lastName}</div>
+        <div>{username}</div>
+      </div>
       {posts
-        ? posts.forEach((post) => {
-            return <div>{post.message}</div>;
+        ? posts.map((element) => {
+            return <div>{element.message}</div>;
           })
         : null}
     </div>
