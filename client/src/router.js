@@ -5,12 +5,13 @@ import Signup from "./signup";
 import Logout from "./logout";
 import Check from "./check";
 import Profile from "./profile";
+import Navbar from "./navbar";
 import Facebook from "./facebook";
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Logout />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
