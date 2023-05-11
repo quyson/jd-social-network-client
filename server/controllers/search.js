@@ -1,8 +1,20 @@
 const User = require("../models/userModel");
 
 const search = (req, res) => {
-  const searchQuery = req.body.searchQuery;
-  res.send({ searchURL: `/search?q=${searchQuery}` });
+  const searchQuery = req.body.searchQuery.trim();
+  User.find({
+    $or: [
+      { first_name: { $regex: new RegExp(searchQuery, "i") } },
+      { last_name: { $regex: new RegExp(searchQuery, "i") } },
+      { username: { $regex: new RegExp(searchQuery, "i") } },
+    ],
+  })
+    .select(
+      "-password -bio -dob -sex -friendList -friendRequests -notifications"
+    )
+    .then((result) => {
+      res.send(result);
+    });
 };
 
 const searchResults = (req, res) => {

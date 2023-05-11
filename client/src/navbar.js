@@ -7,16 +7,32 @@ import Logout from "./logout";
 const Navbar = () => {
   const [search, setSearch] = useState(null);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        "http://localhost:8000/search",
+        { searchQuery: search },
+        { headers: { Authorization: token } }
+      )
+      .then((result) => {
+        console.log(result);
+      });
+  };
+
   return (
     <div>
       <h3>JD SOCIAL NETWORK</h3>
       <div>
-        <form>
+        <form onSubmit={handleSearch}>
           <input
             id="search"
             name="search"
             placeholder="Search JD Network"
+            onChange={(e) => setSearch(e.target.value)}
           ></input>
+          <button>Search</button>
         </form>
       </div>
       <Logout />
