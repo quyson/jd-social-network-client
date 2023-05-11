@@ -1,7 +1,8 @@
 const User = require("../models/userModel");
 
-const search = (req, res) => {
-  const searchQuery = req.body.searchQuery.trim();
+const searchResults = (req, res) => {
+  const searchQuery = req.params.id;
+  console.log(searchQuery);
   User.find({
     $or: [
       { first_name: { $regex: new RegExp(searchQuery, "i") } },
@@ -13,33 +14,15 @@ const search = (req, res) => {
       "-password -bio -dob -sex -friendList -friendRequests -notifications"
     )
     .then((result) => {
-      res.send(result);
-    });
-};
-
-const searchResults = (req, res) => {
-  const searchQuery = req.query.q;
-  User.find(
-    {
-      $or: [
-        { username: searchQuery },
-        { first_name: searchQuery },
-        { last_name: searchQuery },
-      ],
-    },
-    ["first_name", "last_name", "username"]
-  )
-    .then((result) => {
-      res.send({ searchResults: result });
+      res.send({ result: result });
     })
     .catch((error) => {
-      return next(error);
+      next(error);
     });
 };
-
 /* search bar will be a form that sends post request. this protects sensitive information. 
 search route will then send back that search query in which front end will redirect to a dynamic
 page with that search query as a url. this triggers a new router which will then send back related 
 info from database" */
 
-module.exports = { search, searchResults };
+module.exports = { searchResults };

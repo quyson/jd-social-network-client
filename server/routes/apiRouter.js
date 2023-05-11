@@ -68,8 +68,7 @@ router.get("/check", isLoggedIn, (req, res) => {
   res.send({ user: req.user, message: "HELLO" });
 });
 
-router.post("/search", isLoggedIn, search.search);
-router.get("/search/:query", isLoggedIn, search.searchResults);
+router.get("/search/:id", isLoggedIn, search.searchResults);
 router.get("/page/:id", isLoggedIn, profile.getOthersPage);
 router.patch("/page/request/:id", isLoggedIn, request.sendFriendRequest);
 router.get("/post:id", isLoggedIn, post.getPost);
