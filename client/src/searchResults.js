@@ -22,7 +22,11 @@ const SearchResults = () => {
     <div>
       {results.length > 0 ? (
         results.map((user) => {
-          return <div>{user.username}</div>;
+          return (
+            <Link to={`/pages/${user._id}`}>
+              <div>{user.username}</div>
+            </Link>
+          );
         })
       ) : (
         <div>No Results to Show...</div>

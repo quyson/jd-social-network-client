@@ -57,15 +57,21 @@ const getOthersPage = async (req, res) => {
         "friendList",
       ]),
       Post.find({ directedTo: req.params.id }).populate({
-        path: "users",
+        path: "user",
         select: "first_name last_name username",
       }),
     ]);
+    if (user.id === req.user.id) {
+      res.send({
+        success: true,
+        sameUser: true,
+      });
+    }
     if (user.friendList.includes(req.user.id) || user.private == false) {
       const postIds = posts.map((post) => post._id);
 
       const comments = await Comment.find({ post: { $in: postIds } }).populate({
-        path: "users",
+        path: "user",
         select: "first_name last_name username createdAt",
       });
 
@@ -79,11 +85,18 @@ const getOthersPage = async (req, res) => {
         success: true,
         resultUser: user,
         resultPost: postsWithComments,
+        access: true,
       });
     } else {
       res.send({
         success: true,
-        resultUser: user,
+        access: false,
+        resultUser: {
+          username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          bio: user.bio,
+        },
       });
     }
   } catch (error) {

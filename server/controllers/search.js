@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 
 const searchResults = (req, res) => {
   const searchQuery = req.params.id;
-  console.log(searchQuery);
   User.find({
     $or: [
       { first_name: { $regex: new RegExp(searchQuery, "i") } },
