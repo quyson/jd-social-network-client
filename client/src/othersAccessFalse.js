@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import FriendButton from "./friendButton";
 
 const PrivateView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -18,6 +19,7 @@ const PrivateView = (props) => {
         <div>{bio}</div>
         <div>{dob}</div>
       </div>
+      <FriendButton />
     </div>
   );
 };
