@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import FullView from "./othersAccessTrue";
+import PrivateView from "./othersAccessFalse";
 
 const GetOthersPage = () => {
   const userParams = useParams();
@@ -41,7 +42,7 @@ const GetOthersPage = () => {
           setAccess(false);
         }
       });
-  });
+  }, []);
   return (
     <div>
       {access ? (
@@ -55,7 +56,15 @@ const GetOthersPage = () => {
           posts={posts}
           sex={sex}
         />
-      ) : null}
+      ) : (
+        <PrivateView
+          firstName={firstName}
+          lastName={lastName}
+          username={username}
+          bio={bio}
+          dob={dob}
+        />
+      )}
     </div>
   );
 };
