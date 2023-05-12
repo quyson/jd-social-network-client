@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import FullView from "./othersAccessTrue";
 
 const GetOthersPage = () => {
   const userParams = useParams();
@@ -14,7 +15,6 @@ const GetOthersPage = () => {
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
   const [access, setAccess] = useState(false);
-  const [writeComment, setWriteComment] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -42,7 +42,22 @@ const GetOthersPage = () => {
         }
       });
   });
-  return <div>{firstName}</div>;
+  return (
+    <div>
+      {access ? (
+        <FullView
+          firstName={firstName}
+          lastName={lastName}
+          username={username}
+          friendList={friendList}
+          bio={bio}
+          dob={dob}
+          posts={posts}
+          sex={sex}
+        />
+      ) : null}
+    </div>
+  );
 };
 
 export default GetOthersPage;
