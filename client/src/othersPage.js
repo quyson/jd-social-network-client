@@ -15,7 +15,8 @@ const GetOthersPage = () => {
   const [dob, setDob] = useState(null);
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [access, setAccess] = useState(false);
+  const [access, setAccess] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,37 +35,46 @@ const GetOthersPage = () => {
           setSex(result.data.resultUser.sex);
           setPosts(result.data.resultPost);
           setAccess(true);
+          setLoading(false);
         } else {
           setFirstName(result.data.resultUser.first_name);
           setLastName(result.data.resultUser.last_name);
           setUsername(result.data.resultUser.username);
           setBio(result.data.resultUser.bio);
           setAccess(false);
+          setLoading(false);
         }
       });
   }, []);
+
+  if (loading) {
+    return <div>...Loading Page</div>;
+  }
+
   return (
     <div>
-      {access ? (
-        <FullView
-          firstName={firstName}
-          lastName={lastName}
-          username={username}
-          friendList={friendList}
-          bio={bio}
-          dob={dob}
-          posts={posts}
-          sex={sex}
-        />
-      ) : (
-        <PrivateView
-          firstName={firstName}
-          lastName={lastName}
-          username={username}
-          bio={bio}
-          dob={dob}
-        />
-      )}
+      <div>
+        {access ? (
+          <FullView
+            firstName={firstName}
+            lastName={lastName}
+            username={username}
+            friendList={friendList}
+            bio={bio}
+            dob={dob}
+            posts={posts}
+            sex={sex}
+          />
+        ) : (
+          <PrivateView
+            firstName={firstName}
+            lastName={lastName}
+            username={username}
+            bio={bio}
+            dob={dob}
+          />
+        )}
+      </div>
     </div>
   );
 };
