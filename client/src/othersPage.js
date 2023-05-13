@@ -14,6 +14,7 @@ const GetOthersPage = () => {
   const [bio, setBio] = useState(null);
   const [dob, setDob] = useState(null);
   const [sex, setSex] = useState(null);
+  const [friendRequestSent, setFriendRequestSent] = useState(null);
   const [posts, setPosts] = useState([]);
   const [access, setAccess] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,7 @@ const GetOthersPage = () => {
           setLastName(result.data.resultUser.last_name);
           setUsername(result.data.resultUser.username);
           setBio(result.data.resultUser.bio);
+          setFriendRequestSent(result.data.friendRequestSent);
           setAccess(false);
           setLoading(false);
         }
@@ -72,6 +74,7 @@ const GetOthersPage = () => {
             username={username}
             bio={bio}
             dob={dob}
+            friendRequestSent={friendRequestSent}
           />
         )}
       </div>

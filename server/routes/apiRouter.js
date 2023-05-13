@@ -70,6 +70,7 @@ router.get("/check", isLoggedIn, (req, res) => {
 
 router.get("/search/:id", isLoggedIn, search.searchResults);
 router.get("/page/:id", isLoggedIn, profile.getOthersPage);
+router.patch("/request/cancel/:id", isLoggedIn, request.cancelFriendRequest);
 router.patch("/page/request/:id", isLoggedIn, request.sendFriendRequest);
 router.get("/post:id", isLoggedIn, post.getPost);
 router.post("/post/like/:id", isLoggedIn, post.likePost);

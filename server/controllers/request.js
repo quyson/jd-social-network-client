@@ -13,6 +13,19 @@ const sendFriendRequest = (req, res) => {
   });
 };
 
+const cancelFriendRequest = (req, res) => {
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { friendRequests: req.user.id } },
+    { new: true }
+  ).then((result) => {
+    res.send({
+      success: true,
+      message: "Successfully Cancelled Friend Request",
+    });
+  });
+};
+
 const deleteFriendRequest = (req, res) => {
   User.findByIdAndUpdate(
     req.user.id,
@@ -59,4 +72,5 @@ module.exports = {
   sendFriendRequest,
   deleteFriendRequest,
   acceptFriendRequest,
+  cancelFriendRequest,
 };

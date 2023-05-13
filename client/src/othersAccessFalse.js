@@ -9,6 +9,9 @@ const PrivateView = (props) => {
   const [username, setUsername] = useState(props.username);
   const [bio, setBio] = useState(props.bio);
   const [dob, setDob] = useState(props.dob);
+  const [friendRequestSent, setFriendRequestSent] = useState(
+    props.friendRequestSent
+  );
 
   return (
     <div>
@@ -19,7 +22,7 @@ const PrivateView = (props) => {
         <div>{bio}</div>
         <div>{dob}</div>
       </div>
-      <FriendButton />
+      <FriendButton friendRequestSent={friendRequestSent} />
     </div>
   );
 };

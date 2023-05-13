@@ -55,6 +55,7 @@ const getOthersPage = async (req, res) => {
         "dob",
         "private",
         "friendList",
+        "friendRequests",
       ]),
       Post.find({ directedTo: req.params.id }).populate({
         path: "user",
@@ -88,9 +89,14 @@ const getOthersPage = async (req, res) => {
         access: true,
       });
     } else {
+      let friendRequestSent = false;
+      if (user.friendRequests.includes(req.user.id)) {
+        friendRequestSent = true;
+      }
       res.send({
         success: true,
         access: false,
+        friendRequestSent: friendRequestSent,
         resultUser: {
           username: user.username,
           first_name: user.first_name,
