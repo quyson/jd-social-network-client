@@ -9,11 +9,15 @@ import Navbar from "./navbar";
 import Facebook from "./facebook";
 import SearchResults from "./searchResults";
 import GetOthersPage from "./othersPage";
+import { useSelector } from "react-redux";
 
 const Router = () => {
+  const currentUser = useSelector(
+    (state) => state.user && state.user.currentUser
+  );
   return (
     <BrowserRouter>
-      <Navbar />
+      {currentUser ? <Navbar /> : null}
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

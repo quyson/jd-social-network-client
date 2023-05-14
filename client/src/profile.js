@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "./createPost";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [firstName, setFirstName] = useState(null);
@@ -13,6 +14,10 @@ const Profile = () => {
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
   const [writeComment, setWriteComment] = useState(null);
+
+  const currentUser = useSelector(
+    (state) => state.user && state.user.currentUser
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");

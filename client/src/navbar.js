@@ -3,9 +3,14 @@ import axios from "axios";
 import { useState } from "react";
 import Logout from "./logout";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [search, setSearch] = useState(null);
+
+  const currentUser = useSelector(
+    (state) => state.user && state.user.currentUser
+  );
 
   return (
     <div>
@@ -22,6 +27,7 @@ const Navbar = () => {
             <button type="button">Search</button>
           </Link>
         </form>
+        <div>{currentUser}</div>
       </div>
       <Logout />
     </div>

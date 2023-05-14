@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const tokenSlice = createSlice({
-  name: token,
+  name: "token",
   initialState: { currentToken: null },
   reducers: {
     setToken: (state, action) => {

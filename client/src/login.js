@@ -2,11 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./redux/slices/userSlice";
 
 const Login = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,6 +21,7 @@ const Login = () => {
     console.log(response.data.token);
     localStorage.setItem("token", response.data.token);
     if (response.data.success) {
+      dispatch(setCurrentUser(response.data.username));
       navigate("/profile");
     }
   };

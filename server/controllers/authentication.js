@@ -51,6 +51,7 @@ const login = (req, res) => {
           success: true,
           message: "Logged in successfully",
           token: "Bearer " + token,
+          username: result.username,
         });
       } else {
         return res.status(401).send({
