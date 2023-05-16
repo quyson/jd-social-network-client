@@ -17,7 +17,7 @@ const Router = () => {
   );
   return (
     <BrowserRouter>
-      {currentUser ? <Navbar /> : null}
+      {currentUser ? <Navbar /> : console.log("error")}
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

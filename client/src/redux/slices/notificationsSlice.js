@@ -6,6 +6,7 @@ const notificationsSlice = createSlice({
   reducers: {
     setNotifications: (state, action) => {
       state.latestNotifications = action.payload;
+      console.log(state.latestNotifications);
     },
   },
 });

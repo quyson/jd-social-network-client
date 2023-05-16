@@ -4,8 +4,7 @@ const sendFriendRequest = (req, res) => {
   const notification = { from: req.user.id, status: req.body.status };
   User.findByIdAndUpdate(
     req.params.id,
-    { $push: { friendRequests: req.user.id } },
-    { $push: { notifications: notification } },
+    { $push: { friendRequests: req.user.id, notifications: notification } },
     { new: true }
   ).then((result) => {
     res.send({
@@ -18,7 +17,12 @@ const sendFriendRequest = (req, res) => {
 const cancelFriendRequest = (req, res) => {
   User.findByIdAndUpdate(
     req.params.id,
-    { $pull: { friendRequests: req.user.id } },
+    {
+      $pull: {
+        friendRequests: req.user.id,
+        notifications: { from: req.user.id, status: "friendRequest" },
+      },
+    },
     { new: true }
   ).then((result) => {
     res.send({
