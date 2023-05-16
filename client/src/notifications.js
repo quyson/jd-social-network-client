@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 const notifications = () => {
-  /* const notifications = useSelector(
-    (state) => state.notifications && state.notifications.notifications */
+  const notifications = useSelector(
+    (state) => state.notifications && state.notifications.notifications);
   const [visNotifications, setVisNotifications] = useState(false);
 
   const handleVisible = () => {

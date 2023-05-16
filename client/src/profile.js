@@ -2,9 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "./createPost";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [username, setUsername] = useState(null);
@@ -36,6 +37,9 @@ const Profile = () => {
         setSex(result.data.resultUser.sex);
         setPosts(result.data.resultPost);
       });
+    axios.get("http://localhost:8000/notifications", {
+      headers: { Authorization: token },
+    }).then((result) => )
   }, []);
 
   const handleComment = (postId, e) => {
