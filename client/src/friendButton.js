@@ -15,7 +15,7 @@ const FriendButton = (props) => {
     axios
       .patch(
         `http://localhost:8000/page/request/${userParams.id}`,
-        {},
+        { status: "friendRequest" },
         {
           headers: { Authorization: token },
         }

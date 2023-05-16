@@ -1,9 +1,11 @@
 const User = require("../models/userModel");
 
 const sendFriendRequest = (req, res) => {
+  const notification = { from: req.user.id, status: req.body.status };
   User.findByIdAndUpdate(
     req.params.id,
     { $push: { friendRequests: req.user.id } },
+    { $push: { notifications: notification } },
     { new: true }
   ).then((result) => {
     res.send({

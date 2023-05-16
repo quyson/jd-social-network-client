@@ -24,7 +24,6 @@ const Notifications = () => {
             return <div>{element}</div>;
           })
         : null}
-      <div>yo</div>
     </div>
   );
 };
