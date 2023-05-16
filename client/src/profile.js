@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "./createPost";
 import { useSelector, useDispatch } from "react-redux";
+import { setNotifications } from "./redux/slices/notificationsSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,6 @@ const Profile = () => {
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
   const [writeComment, setWriteComment] = useState(null);
-
-  const currentUser = useSelector(
-    (state) => state.user && state.user.currentUser
-  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,9 +34,13 @@ const Profile = () => {
         setSex(result.data.resultUser.sex);
         setPosts(result.data.resultPost);
       });
-    axios.get("http://localhost:8000/notifications", {
-      headers: { Authorization: token },
-    }).then((result) => )
+    axios
+      .get("http://localhost:8000/notifications", {
+        headers: { Authorization: token },
+      })
+      .then((result) => {
+        dispatch(setNotifications(result.data.notifications));
+      });
   }, []);
 
   const handleComment = (postId, e) => {

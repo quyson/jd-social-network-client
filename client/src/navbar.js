@@ -4,6 +4,7 @@ import { useState } from "react";
 import Logout from "./logout";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Notifications from "./notifications";
 
 const Navbar = () => {
   const [search, setSearch] = useState(null);
@@ -29,6 +30,7 @@ const Navbar = () => {
         </form>
         <div>{currentUser}</div>
       </div>
+      <Notifications />
       <Logout />
     </div>
   );

@@ -2,9 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-const notifications = () => {
+const Notifications = () => {
   const notifications = useSelector(
-    (state) => state.notifications && state.notifications.notifications);
+    (state) => state.notification && state.notification.latestNotifications
+  );
+
   const [visNotifications, setVisNotifications] = useState(false);
 
   const handleVisible = () => {
@@ -12,14 +14,19 @@ const notifications = () => {
   };
   return (
     <div>
-      {notifications.length > 0 ? (
+      {notifications.length > 0 && notifications ? (
         <div onClick={handleVisible}>{notifications.length}</div>
       ) : (
-        <div onClicl={handleVisible}>Notifications</div>
+        <div onClick={handleVisible}>Notifications</div>
       )}
-      {visNotifications ? {notifications.map((element) => {return(<div>{element}</div>)})} : null}
+      {visNotifications
+        ? notifications.map((element) => {
+            return <div>{element}</div>;
+          })
+        : null}
+      <div>yo</div>
     </div>
   );
 };
 
-export default notifications;
+export default Notifications;
