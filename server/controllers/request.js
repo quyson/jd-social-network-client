@@ -72,10 +72,6 @@ const acceptFriendRequest = async (req, res) => {
       User.findByIdAndUpdate(
         req.user.id,
         { $push: { friendList: req.params.id } },
-        { new: true }
-      ),
-      //User.findByIdAndDelete(
-        req.user.id,
         {
           $pull: {
             friendRequests: req.params.id,
