@@ -26,7 +26,7 @@ const Notifications = () => {
               return (
                 <div>
                   <div>{element.name} has sent you a friend request</div>
-                  <AcceptFriend id={element.id} />
+                  <AcceptFriend id={element.from} />
                 </div>
               );
             }

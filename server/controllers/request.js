@@ -68,23 +68,38 @@ const deleteFriendRequest = (req, res) => {
 
 const acceptFriendRequest = async (req, res) => {
   try {
-    const [addToFriends, deleteOffRequest] = await Promise.all([
-      User.findByIdAndUpdate(
-        req.user.id,
-        { $push: { friendList: req.params.id } },
-        {
-          $pull: {
-            friendRequests: req.params.id,
-            notifications: {
-              from: req.params.id,
-              name: req.params.first_name + " " + req.params.last_name,
-              status: "friendRequest",
-            },
+    const result = await User.findByIdAndUpdate(req.params.id, {
+      $push: {
+        notifications: {
+          from: req.user.id,
+          name: req.user.first_name + " " + req.user.last_name,
+          status: "AcceptRequest",
+        },
+        friendList: req.user.id,
+      },
+    });
+    const paramsFirstName = result.first_name;
+    const paramsLastName = result.last_name;
+    const result2 = await User.findByIdAndUpdate(
+      req.user.id,
+      { $addToSet: { friendList: req.params.id } },
+      { new: true }
+    );
+    const result3 = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $pull: {
+          friendRequests: req.params.id,
+          notifications: {
+            from: req.params.id,
+            name: paramsFirstName + " " + paramsLastName,
+            status: "friendRequest",
           },
         },
-        { new: true }
-      ),
-    ]);
+      },
+      { new: true }
+    );
+
     res.send({
       success: true,
       message: "Successfully Added Friend!",
