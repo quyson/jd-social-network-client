@@ -23,9 +23,9 @@ const SearchResults = () => {
       {results.length > 0 ? (
         results.map((user) => {
           return (
-            <a href={`/pages/${user._id}`}>
+            <Link to={`/pages/${user._id}`} key={user._id}>
               <div>{user.username}</div>
-            </a>
+            </Link>
           );
         })
       ) : (

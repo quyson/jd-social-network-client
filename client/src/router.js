@@ -12,12 +12,10 @@ import GetOthersPage from "./othersPage";
 import { useSelector } from "react-redux";
 
 const Router = () => {
-  const currentUser = useSelector(
-    (state) => state.user && state.user.currentUser
-  );
+  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
-      {currentUser ? <Navbar /> : console.log("error")}
+      <div>{currentUser !== null && <Navbar />}</div>
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

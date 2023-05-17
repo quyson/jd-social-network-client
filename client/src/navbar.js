@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useState } from "react";
 import Logout from "./logout";
 import { Link } from "react-router-dom";
@@ -12,6 +11,8 @@ const Navbar = () => {
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
   );
+
+  console.log(currentUser);
 
   return (
     <div>

@@ -4,9 +4,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import FullView from "./othersAccessTrue";
 import PrivateView from "./othersAccessFalse";
+import { useSelector } from "react-redux";
 
 const GetOthersPage = () => {
   const userParams = useParams();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [username, setUsername] = useState(null);
@@ -18,6 +20,8 @@ const GetOthersPage = () => {
   const [posts, setPosts] = useState([]);
   const [access, setAccess] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  console.log(currentUser);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -55,29 +59,27 @@ const GetOthersPage = () => {
 
   return (
     <div>
-      <div>
-        {access ? (
-          <FullView
-            firstName={firstName}
-            lastName={lastName}
-            username={username}
-            friendList={friendList}
-            bio={bio}
-            dob={dob}
-            posts={posts}
-            sex={sex}
-          />
-        ) : (
-          <PrivateView
-            firstName={firstName}
-            lastName={lastName}
-            username={username}
-            bio={bio}
-            dob={dob}
-            friendRequestSent={friendRequestSent}
-          />
-        )}
-      </div>
+      {access ? (
+        <FullView
+          firstName={firstName}
+          lastName={lastName}
+          username={username}
+          friendList={friendList}
+          bio={bio}
+          dob={dob}
+          posts={posts}
+          sex={sex}
+        />
+      ) : (
+        <PrivateView
+          firstName={firstName}
+          lastName={lastName}
+          username={username}
+          bio={bio}
+          dob={dob}
+          friendRequestSent={friendRequestSent}
+        />
+      )}
     </div>
   );
 };
