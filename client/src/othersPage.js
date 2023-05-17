@@ -21,8 +21,6 @@ const GetOthersPage = () => {
   const [access, setAccess] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(currentUser);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios

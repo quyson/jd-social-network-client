@@ -1,7 +1,11 @@
 const User = require("../models/userModel");
 
 const sendFriendRequest = (req, res) => {
-  const notification = { from: req.user.id, status: req.body.status };
+  const notification = {
+    from: req.user.id,
+    name: req.user.first_name + " " + req.user.last_name,
+    status: req.body.status,
+  };
   User.findByIdAndUpdate(
     req.params.id,
     { $push: { friendRequests: req.user.id, notifications: notification } },
@@ -20,7 +24,11 @@ const cancelFriendRequest = (req, res) => {
     {
       $pull: {
         friendRequests: req.user.id,
-        notifications: { from: req.user.id, status: "friendRequest" },
+        notifications: {
+          from: req.user.id,
+          name: req.user.first_name + " " + req.user.last_name,
+          status: "friendRequest",
+        },
       },
     },
     { new: true }
@@ -36,7 +44,14 @@ const deleteFriendRequest = (req, res) => {
   User.findByIdAndUpdate(
     req.user.id,
     {
-      $pull: { friendRequests: req.params.id },
+      $pull: {
+        friendRequests: req.params.id,
+        notifications: {
+          from: req.params.id,
+          name: req.params.first_name + " " + req.params.last_name,
+          status: "friendRequest",
+        },
+      },
     },
     { new: true }
   )
@@ -59,9 +74,18 @@ const acceptFriendRequest = async (req, res) => {
         { $push: { friendList: req.params.id } },
         { new: true }
       ),
-      User.findByIdAndDelete(
+      //User.findByIdAndDelete(
         req.user.id,
-        { $pull: { friendRequests: req.params.id } },
+        {
+          $pull: {
+            friendRequests: req.params.id,
+            notifications: {
+              from: req.params.id,
+              name: req.params.first_name + " " + req.params.last_name,
+              status: "friendRequest",
+            },
+          },
+        },
         { new: true }
       ),
     ]);

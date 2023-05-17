@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import AcceptFriend from "./acceptFriend";
 
 const Notifications = () => {
   const notifications = useSelector(
@@ -21,7 +22,14 @@ const Notifications = () => {
       )}
       {visNotifications
         ? notifications.map((element) => {
-            return <div>{element}</div>;
+            if (element.status == "friendRequest") {
+              return (
+                <div>
+                  <div>{element.name} has sent you a friend request</div>
+                  <AcceptFriend id={element.id} />
+                </div>
+              );
+            }
           })
         : null}
     </div>

@@ -79,7 +79,7 @@ router.post("/post/like/:id", isLoggedIn, post.likePost);
 router.post("/post/createComment/:id", isLoggedIn, comment.createComment);
 router.post("/comment/like/:id", isLoggedIn, comment.likeComment);
 router.delete("/request/delete/:id", isLoggedIn, request.deleteFriendRequest);
-router.patch("/request/accept/:id/", isLoggedIn, request.acceptFriendRequest);
+router.patch("/request/accept/:id", isLoggedIn, request.acceptFriendRequest);
 router.post("/createPost", isLoggedIn, post.createPost);
 router.post("page/createPost/:id", isLoggedIn, post.createPostFriends);
 

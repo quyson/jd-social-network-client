@@ -3,9 +3,6 @@ const User = require("../models/userModel");
 const getNotifications = (req, res, next) => {
   User.findById(req.user.id)
     .then((result) => {
-      result.notifications.push("yo");
-      result.notifications.push("yo");
-      result.notifications.push("lmao");
       if (result.notifications.length > 15) {
         result.notifications.pop();
       }

@@ -18,13 +18,17 @@ const Login = () => {
       username: username,
       password: password,
     });
-    console.log(response.data.token);
     localStorage.setItem("token", response.data.token);
     if (response.data.success) {
       dispatch(setCurrentUser(response.data.username));
       navigate("/profile");
     }
   };
+
+  useEffect(() => {
+    dispatch(setCurrentUser(null));
+    localStorage.setItem("token", null);
+  }, []);
 
   return (
     <div>
