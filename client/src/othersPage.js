@@ -64,6 +64,7 @@ const GetOthersPage = () => {
           setUsername(result.data.resultUser.username);
           setBio(result.data.resultUser.bio);
           setDob(result.data.resultUser.dob);
+          setLoading(false);
         }
       });
   }, []);

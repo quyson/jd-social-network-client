@@ -113,11 +113,24 @@ const getOthersPage = async (req, res) => {
           },
         });
       } else {
+        const postIds = posts.map((post) => post._id);
+        const comments = await Comment.find({
+          post: { $in: postIds },
+        }).populate({
+          path: "user",
+          select: "first_name last_name username createdAt",
+        });
+        const postsWithComments = posts.map((post) => {
+          const postComments = comments.filter((comment) =>
+            comment.post.equals(post._id)
+          );
+          return { ...post.toObject(), comments: postComments };
+        });
         res.send({
           success: true,
           resultUser: user,
           resultPost: postsWithComments,
-          access: true,
+          access: false,
           friends: false,
         });
       }
@@ -127,7 +140,35 @@ const getOthersPage = async (req, res) => {
   }
 };
 
+const unfriend = async (req, res) => {
+  try {
+    const [user, otherUser] = await Promise.all([
+      User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $pull: {
+            friendList: req.params.id,
+          },
+        },
+        { new: true }
+      ),
+      User.findByIdAndUpdate(
+        req.params.id,
+        { $pull: { friendList: req.user.id } },
+        { new: true }
+      ),
+    ]);
+    res.send({
+      success: true,
+      message: "Successfully Unfriended",
+    });
+  } catch {
+    next(error);
+  }
+};
+
 module.exports = {
   getUserProfile,
   getOthersPage,
+  unfriend,
 };

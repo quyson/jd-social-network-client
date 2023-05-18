@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FriendButton from "./friendButton";
+import Unfriend from "./unfriend";
 
 const FullView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -49,7 +50,7 @@ const FullView = (props) => {
         <div>{dob}</div>
         <div>{sex}</div>
         {friends ? (
-          <Unfriend />
+          <Unfriend friends={friends} friendRequestSent={friendRequestSent} />
         ) : (
           <FriendButton friendRequestSent={friendRequestSent} />
         )}
