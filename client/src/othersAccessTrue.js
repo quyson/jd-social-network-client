@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FriendButton from "./friendButton";
 import Unfriend from "./unfriend";
+import CreateOtherPost from "./createPostOther";
 
 const FullView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -55,6 +56,7 @@ const FullView = (props) => {
           <FriendButton friendRequestSent={friendRequestSent} />
         )}
       </div>
+      <CreateOtherPost />
       {posts
         ? posts.map((element) => {
             return (

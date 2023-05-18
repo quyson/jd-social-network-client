@@ -47,15 +47,23 @@ const createPost = async (req, res) => {
 };
 
 const createPostFriends = async (req, res) => {
-  const newPost = new Post({
-    message: req.body.message,
-    likes: 0,
-    directedTo: req.params.id,
-    user: req.user.id,
-    likeList: [],
-  });
   try {
+    const newPost = new Post({
+      message: req.body.message,
+      likes: 0,
+      directedTo: req.params.id,
+      user: req.user.id,
+      likeList: [],
+    });
     const result = await newPost.save();
+    const notifications = {
+      from: req.user.id,
+      name: req.user.first_name + req.user.last_name,
+      status: "posted",
+    };
+    const resultFriend = await User.findByIdAndUpdate(req.params.id, {
+      $push: { notifications: notifications },
+    });
     res.send({
       success: true,
       message: "Created post sucessfully",
