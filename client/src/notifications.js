@@ -29,6 +29,8 @@ const Notifications = () => {
                   <AcceptFriend id={element.from} />
                 </div>
               );
+            } else {
+              return <div>You are now friends with {element.name}</div>;
             }
           })
         : null}

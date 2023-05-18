@@ -68,14 +68,12 @@ const getOthersPage = async (req, res) => {
         sameUser: true,
       });
     }
-    if (user.friendList.includes(req.user.id) || user.private == false) {
+    if (user.friendList.includes(req.user.id)) {
       const postIds = posts.map((post) => post._id);
-
       const comments = await Comment.find({ post: { $in: postIds } }).populate({
         path: "user",
         select: "first_name last_name username createdAt",
       });
-
       const postsWithComments = posts.map((post) => {
         const postComments = comments.filter((comment) =>
           comment.post.equals(post._id)
@@ -87,23 +85,42 @@ const getOthersPage = async (req, res) => {
         resultUser: user,
         resultPost: postsWithComments,
         access: true,
+        friends: true,
       });
     } else {
-      let friendRequestSent = false;
-      if (user.friendRequests.includes(req.user.id)) {
-        friendRequestSent = true;
+      if (user.private && user.friendRequests.includes(req.user.id)) {
+        res.send({
+          success: true,
+          access: false,
+          friendRequestSent: true,
+          resultUser: {
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            bio: user.bio,
+          },
+        });
+      } else if (user.private && !user.friendRequests.includes(req.user.id)) {
+        res.send({
+          success: true,
+          access: false,
+          friendRequestSent: false,
+          resultUser: {
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            bio: user.bio,
+          },
+        });
+      } else {
+        res.send({
+          success: true,
+          resultUser: user,
+          resultPost: postsWithComments,
+          access: true,
+          friends: false,
+        });
       }
-      res.send({
-        success: true,
-        access: false,
-        friendRequestSent: friendRequestSent,
-        resultUser: {
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          bio: user.bio,
-        },
-      });
     }
   } catch (error) {
     return next(error);

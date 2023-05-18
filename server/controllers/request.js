@@ -99,7 +99,6 @@ const acceptFriendRequest = async (req, res) => {
       },
       { new: true }
     );
-
     res.send({
       success: true,
       message: "Successfully Added Friend!",

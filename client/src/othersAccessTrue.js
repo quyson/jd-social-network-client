@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import FriendButton from "./friendButton";
 
 const FullView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -13,6 +15,10 @@ const FullView = (props) => {
   const [posts, setPosts] = useState(props.posts);
   const [writePost, setWritePosts] = useState(null);
   const [writeComment, setWriteComment] = useState(null);
+  const [friends, setFriends] = useState(props.friends);
+  const [friendRequestSent, setFriendRequestSent] = useState(
+    props.friendRequestSent
+  );
 
   const handleComment = (postId, e) => {
     e.preventDefault();
@@ -42,6 +48,11 @@ const FullView = (props) => {
         <div>{bio}</div>
         <div>{dob}</div>
         <div>{sex}</div>
+        {friends ? (
+          <Unfriend />
+        ) : (
+          <FriendButton friendRequestSent={friendRequestSent} />
+        )}
       </div>
       {posts
         ? posts.map((element) => {

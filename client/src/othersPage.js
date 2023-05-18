@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const GetOthersPage = () => {
   const userParams = useParams();
-  const currentUser = useSelector((state) => state.user.currentUser);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [username, setUsername] = useState(null);
@@ -19,6 +18,7 @@ const GetOthersPage = () => {
   const [friendRequestSent, setFriendRequestSent] = useState(null);
   const [posts, setPosts] = useState([]);
   const [access, setAccess] = useState(null);
+  const [friends, setFriends] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const GetOthersPage = () => {
         headers: { Authorization: token },
       })
       .then((result) => {
-        if (result.data.access) {
+        if (result.data.access && result.data.friends) {
           setFirstName(result.data.resultUser.first_name);
           setLastName(result.data.resultUser.last_name);
           setUsername(result.data.resultUser.username);
@@ -37,16 +37,33 @@ const GetOthersPage = () => {
           setDob(result.data.resultUser.dob);
           setSex(result.data.resultUser.sex);
           setPosts(result.data.resultPost);
+          setFriends(true);
           setAccess(true);
           setLoading(false);
-        } else {
+        }
+        if (result.data.access && !result.data.friends) {
+          setFirstName(result.data.resultUser.first_name);
+          setLastName(result.data.resultUser.last_name);
+          setUsername(result.data.resultUser.username);
+          setFriendList(result.data.resultUser.friendList);
+          setBio(result.data.resultUser.bio);
+          setDob(result.data.resultUser.dob);
+          setSex(result.data.resultUser.sex);
+          setPosts(result.data.resultPost);
+          setFriends(false);
+          setAccess(true);
+          setLoading(false);
+        }
+        if (!result.data.access) {
+          if (result.data.friendRequestSent) {
+            setFriendRequestSent(true);
+          }
+          setFriendRequestSent(false);
           setFirstName(result.data.resultUser.first_name);
           setLastName(result.data.resultUser.last_name);
           setUsername(result.data.resultUser.username);
           setBio(result.data.resultUser.bio);
-          setFriendRequestSent(result.data.friendRequestSent);
-          setAccess(false);
-          setLoading(false);
+          setDob(result.data.resultUser.dob);
         }
       });
   }, []);
@@ -67,6 +84,8 @@ const GetOthersPage = () => {
           dob={dob}
           posts={posts}
           sex={sex}
+          friends={friends}
+          friendRequestSent={friendRequestSent}
         />
       ) : (
         <PrivateView
