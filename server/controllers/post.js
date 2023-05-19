@@ -59,7 +59,7 @@ const createPostFriends = async (req, res) => {
     const notifications = {
       from: req.user.id,
       name: req.user.first_name + req.user.last_name,
-      status: "posted",
+      status: "newPost",
     };
     const resultFriend = await User.findByIdAndUpdate(req.params.id, {
       $push: { notifications: notifications },
