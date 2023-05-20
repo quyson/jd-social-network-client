@@ -29,6 +29,10 @@ const Notifications = () => {
                   <AcceptFriend id={element.from} />
                 </div>
               );
+            } else if (element.status == "newPost") {
+              return <div>{element.name} has posted on your profile!</div>;
+            } else if (element.status == "newComment") {
+              return <div>{element.name} has commented on your post!</div>;
             } else {
               return <div>You are now friends with {element.name}</div>;
             }

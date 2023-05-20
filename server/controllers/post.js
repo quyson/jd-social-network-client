@@ -78,6 +78,7 @@ const likePost = (req, res) => {
   Post.findById(req.params.id)
     .then((result) => {
       if (result.likeList.includes(req.user.id)) {
+        console.log("Aleady liked");
         return;
       }
       const updatedLikes = result.likes + 1;

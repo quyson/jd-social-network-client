@@ -75,12 +75,12 @@ router.get("/page/:id", isLoggedIn, profile.getOthersPage);
 router.patch("/request/cancel/:id", isLoggedIn, request.cancelFriendRequest);
 router.patch("/page/request/:id", isLoggedIn, request.sendFriendRequest);
 router.get("/post:id", isLoggedIn, post.getPost);
-router.post("/post/like/:id", isLoggedIn, post.likePost);
+router.patch("/post/like/:id", isLoggedIn, post.likePost);
 router.post("/post/createComment/:id", isLoggedIn, comment.createComment);
 router.post("/comment/like/:id", isLoggedIn, comment.likeComment);
 router.delete("/request/delete/:id", isLoggedIn, request.deleteFriendRequest);
 router.patch("/request/accept/:id", isLoggedIn, request.acceptFriendRequest);
-router.post("/createPost", isLoggedIn, post.createPost);
+router.patch("/createPost", isLoggedIn, post.createPost);
 router.post("/page/createPost/:id", isLoggedIn, post.createPostFriends);
 router.patch("/page/unfriend/:id", isLoggedIn, profile.unfriend);
 
