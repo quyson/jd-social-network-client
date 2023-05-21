@@ -16,7 +16,7 @@ const LikePost = (props) => {
         { headers: { Authorization: token } }
       )
       .then((result) => {
-        console.log(result.data.likes);
+        console.log(result.data.newLikes);
       });
   };
 

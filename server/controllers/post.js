@@ -88,9 +88,12 @@ const likePost = async (req, res) => {
       name: req.user.first_name + " " + req.user.last_name,
       status: "likePost",
     };
-    const userResult = await User.findByIdAndUpdate(postResult.user.id, {
-      $push: { notifications: notifications },
-    });
+
+    if (postResult.user.id != req.user.id) {
+      const userResult = await User.findByIdAndUpdate(postResult.user.id, {
+        $push: { notifications: notifications },
+      });
+    }
 
     const newLikes = postResult.likes + 1;
     postResult.likeList.push(req.user.id);

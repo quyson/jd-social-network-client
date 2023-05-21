@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import FriendButton from "./friendButton";
 import Unfriend from "./unfriend";
 import CreateOtherPost from "./createPostOther";
+import LikePost from "./likePost";
 
 const FullView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -66,7 +67,10 @@ const FullView = (props) => {
                   {element.user.last_name}
                 </div>
                 <div>{element.message}</div>
-                <div>{element.likes}</div>
+                <div>{element.likes} likes</div>
+                <div>
+                  <LikePost postId={element._id} />
+                </div>
                 {element.comments
                   ? element.comments.map((comment) => {
                       return <div>{comment.message}</div>;
