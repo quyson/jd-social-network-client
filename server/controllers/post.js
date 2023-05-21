@@ -74,31 +74,38 @@ const createPostFriends = async (req, res) => {
   }
 };
 
-const likePost = (req, res) => {
-  Post.findById(req.params.id)
-    .then((result) => {
-      if (result.likeList.includes(req.user.id)) {
-        console.log("Aleady liked");
-        return;
-      }
-      const updatedLikes = result.likes + 1;
-      result.likeList.push(req.user.id);
-      result.likes = updatedLikes;
-      result
-        .save()
-        .then((result) => {
-          res.send({
-            success: true,
-            likes: result.likes,
-          });
-        })
-        .catch((err) => {
-          next(err);
-        });
-    })
-    .catch((err) => {
-      next(err);
+const likePost = async (req, res) => {
+  try {
+    const postResult = await Post.findById(req.params.id).populate("user");
+
+    if (postResult.likeList.includes(req.user.id)) {
+      console.log("Already Liked");
+      return;
+    }
+
+    const notifications = {
+      from: req.user.id,
+      name: req.user.first_name + " " + req.user.last_name,
+      status: "likePost",
+    };
+    const userResult = await User.findByIdAndUpdate(postResult.user.id, {
+      $push: { notifications: notifications },
     });
+
+    const newLikes = postResult.likes + 1;
+    postResult.likeList.push(req.user.id);
+    postResult.likes = newLikes;
+    const save = await postResult.save();
+    if (save) {
+      res.send({
+        success: true,
+        message: "Successfully liked",
+        newLikes: postResult.likes,
+      });
+    }
+  } catch {
+    console.log(error);
+  }
 };
 
 module.exports = { getPost, likePost, createPost, createPostFriends, timeline };
