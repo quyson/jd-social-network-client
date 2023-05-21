@@ -5,6 +5,7 @@ import CreatePost from "./createPost";
 import { useSelector, useDispatch } from "react-redux";
 import { setNotifications } from "./redux/slices/notificationsSlice";
 import LikePost from "./likePost";
+import LikeComment from "./likeComment";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -87,7 +88,17 @@ const Profile = () => {
                 </div>
                 {element.comments
                   ? element.comments.map((comment) => {
-                      return <div>{comment.message}</div>;
+                      return (
+                        <div>
+                          <div>
+                            {comment.user.first_name} {comment.user.last_name} -
+                            {comment.user.username}
+                          </div>
+                          <div>{comment.message}</div>
+                          <div>{comment.likes} Likes</div>
+                          <LikeComment commentId={comment._id} />
+                        </div>
+                      );
                     })
                   : null}
                 <div>

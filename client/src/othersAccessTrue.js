@@ -6,6 +6,7 @@ import FriendButton from "./friendButton";
 import Unfriend from "./unfriend";
 import CreateOtherPost from "./createPostOther";
 import LikePost from "./likePost";
+import LikeComment from "./likeComment";
 
 const FullView = (props) => {
   const [firstName, setFirstName] = useState(props.firstName);
@@ -73,7 +74,17 @@ const FullView = (props) => {
                 </div>
                 {element.comments
                   ? element.comments.map((comment) => {
-                      return <div>{comment.message}</div>;
+                      return (
+                        <div>
+                          <div>
+                            {comment.user.first_name} {comment.user.last_name} -
+                            {comment.user.username}
+                          </div>
+                          <div>{comment.message}</div>
+                          <div>{comment.likes} Likes</div>
+                          <LikeComment commentId={comment._id} />
+                        </div>
+                      );
                     })
                   : null}
                 <div>
