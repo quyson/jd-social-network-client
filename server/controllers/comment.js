@@ -34,30 +34,43 @@ const createComment = async (req, res) => {
   }
 };
 
-const likeComment = (req, res) => {
-  Comment.findById(req.params.id)
-    .then((result) => {
-      if (result.likeList.includes(req.user.id)) {
-        return;
-      }
-      const updatedLikes = result.likes + 1;
-      result.likeList.push(req.user.id);
-      result.likes = updatedLikes;
-      result
-        .save()
-        .then((result) => {
-          res.send({
-            success: true,
-            likes: result.likes,
-          });
-        })
-        .catch((err) => {
-          next(err);
-        });
-    })
-    .catch((err) => {
-      next(err);
-    });
+const likeComment = async (req, res) => {
+  try {
+    const commentResult = await Comment.findById(req.params.id).populate(
+      "user"
+    );
+
+    if (commentResult.likeList.includes(req.user.id)) {
+      console.log("Already Liked");
+      return;
+    }
+
+    const notifications = {
+      from: req.user.id,
+      name: req.user.first_name + " " + req.user.last_name,
+      status: "likeComment",
+    };
+
+    if (commentResult.user.id != req.user.id) {
+      const userResult = await User.findByIdAndUpdate(commentResult.user.id, {
+        $push: { notifications: notifications },
+      });
+    }
+
+    const newLikes = commentResult.likes + 1;
+    commentResult.likeList.push(req.user.id);
+    commentResult.likes = newLikes;
+    const save = await commentResult.save();
+    if (save) {
+      res.send({
+        success: true,
+        message: "Successfully liked",
+        newLikes: postResult.likes,
+      });
+    }
+  } catch {
+    console.log(error);
+  }
 };
 
 module.exports = { createComment, likeComment };
