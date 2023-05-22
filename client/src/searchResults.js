@@ -2,10 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SearchResults = () => {
   const searchQuery = useParams();
   const [results, setResults] = useState([]);
+  const currentUser = useSelector(
+    (state) => state.user && state.user.currentUser
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -22,7 +26,11 @@ const SearchResults = () => {
     <div>
       {results.length > 0 ? (
         results.map((user) => {
-          return (
+          return currentUser == user.username ? (
+            <Link to={`/profile`}>
+              <div>{user.username}</div>
+            </Link>
+          ) : (
             <Link to={`/pages/${user._id}`} key={user._id}>
               <div>{user.username}</div>
             </Link>

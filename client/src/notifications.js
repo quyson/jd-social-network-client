@@ -33,6 +33,10 @@ const Notifications = () => {
               return <div>{element.name} has posted on your profile!</div>;
             } else if (element.status == "newComment") {
               return <div>{element.name} has commented on your post!</div>;
+            } else if (element.status == "likeComment") {
+              return <div>{element.name} has liked your comment!</div>;
+            } else if (element.status == "likePost") {
+              return <div>{element.name} has liked your post!</div>;
             } else {
               return <div>You are now friends with {element.name}</div>;
             }
