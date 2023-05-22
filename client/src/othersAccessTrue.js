@@ -50,7 +50,6 @@ const FullView = (props) => {
         <div>{lastName}</div>
         <div>{username}</div>
         <div>{bio}</div>
-        <div>{dob}</div>
         <div>{sex}</div>
         {friends ? (
           <Unfriend friends={friends} friendRequestSent={friendRequestSent} />

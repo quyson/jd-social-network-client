@@ -21,7 +21,7 @@ const Login = () => {
     localStorage.setItem("token", response.data.token);
     if (response.data.success) {
       dispatch(setCurrentUser(response.data.username));
-      navigate("/profile");
+      navigate("/timeline");
     }
   };
 

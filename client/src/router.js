@@ -10,6 +10,7 @@ import Facebook from "./facebook";
 import SearchResults from "./searchResults";
 import GetOthersPage from "./othersPage";
 import { useSelector } from "react-redux";
+import Timeline from "./timeline";
 
 const Router = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -18,6 +19,7 @@ const Router = () => {
       <div>{currentUser !== null && <Navbar />}</div>
       <Routes>
         <Route path="/" element={<Login />}></Route>
+        <Route path="/timeline" element={<Timeline />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/check" element={<Check />}></Route>
         <Route path="/profile" element={<Profile />}></Route>

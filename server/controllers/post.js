@@ -3,11 +3,15 @@ const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 
 const timeline = async (req, res) => {
-  const userFriendList = await User.findById(req.user.id, "friendList");
-  const friendIds = userFriendList.map((element) => element.id);
-  const friendPosts = await Post({ _id: { $in: friendIds } })
+  const userResult = await User.findById(req.user.id);
+  const userFriendList = userResult.friendList;
+  console.log(userFriendList);
+  const friendPosts = await Post.find({
+    directedTo: { $in: userFriendList.concat(req.user.id) },
+  })
     .sort("-timestamp")
     .limit(25);
+  console.log(friendPosts);
   res.send({ friendPosts: friendPosts });
 };
 

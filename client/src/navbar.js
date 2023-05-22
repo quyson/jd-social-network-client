@@ -29,7 +29,9 @@ const Navbar = () => {
             <button type="button">Search</button>
           </Link>
         </form>
-        <div>{currentUser}</div>
+        <Link to={`/profile`}>
+          <div>{currentUser}</div>
+        </Link>
       </div>
       <Notifications />
       <Logout />

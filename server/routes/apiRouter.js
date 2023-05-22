@@ -32,7 +32,7 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-router.get("timeline", isLoggedIn, post.timeline);
+router.get("/timeline", isLoggedIn, post.timeline);
 router.post("/signup", authentication.signup);
 router.post("/login", authentication.login);
 router.get(
