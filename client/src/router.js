@@ -10,6 +10,7 @@ import Facebook from "./facebook";
 import SearchResults from "./searchResults";
 import GetOthersPage from "./othersPage";
 import { useSelector } from "react-redux";
+import GetPost from "./post";
 import Timeline from "./timeline";
 
 const Router = () => {
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/search/:id" element={<SearchResults />}></Route>
         <Route path="/pages/:id" element={<GetOthersPage />}></Route>
+        <Route path="/post/:id" element={<GetPost />}></Route>
       </Routes>
     </BrowserRouter>
   );
