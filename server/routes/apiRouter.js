@@ -35,14 +35,9 @@ function isLoggedIn(req, res, next) {
 router.get("/timeline", isLoggedIn, post.timeline);
 router.post("/signup", authentication.signup);
 router.post("/login", authentication.login);
-router.get(
-  "/protected",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.send({ user: req.user, message: "LOl" });
-  }
+router.get("/getUser", isLoggedIn, (req, res) =>
+  res.send({ user: req.user.username })
 );
-
 /*router.post("/auth/facebook", passport.authenticate("facebook"));
 router.get(
   "/auth/facebook/callback",

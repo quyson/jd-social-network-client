@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login";
 import Signup from "./signup";
@@ -9,11 +9,26 @@ import Navbar from "./navbar";
 import Facebook from "./facebook";
 import SearchResults from "./searchResults";
 import GetOthersPage from "./othersPage";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GetPost from "./post";
 import Timeline from "./timeline";
+import axios from "axios";
+import { setCurrentUser } from "./redux/slices/userSlice";
 
 const Router = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("http://localhost:8000/getUser", {
+          headers: { Authorization: token },
+        })
+        .then((result) => {
+          dispatch(setCurrentUser(result.data.user));
+        });
+    }
+  }, []);
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>

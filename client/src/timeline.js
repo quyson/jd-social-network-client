@@ -42,6 +42,7 @@ const Timeline = () => {
                     </div>
                   </Link>
                 )}
+                <Link></Link>
                 <div>{element.message}</div>
                 <div>{element.likes} Likes</div>
               </div>
