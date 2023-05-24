@@ -17,10 +17,10 @@ const Navbar = () => {
   return (
     <div
       className="flex bg-stone-800 p-3 items-center 
-    justify-between h-16 border-b-4 border-neutral-300 w-full px-8 sticky"
+    justify-between h-16 border-b-2 border-neutral-500 w-full px-8 sticky"
     >
       <h1 className="text-white font-bold text-xl">
-        <a href="/timeline">JD SOCIAL NETWORK</a>
+        <Link to={`/timeline`}>JD SOCIAL NETWORK</Link>
       </h1>
       <div className="w-1/2 text-center">
         <form>

@@ -5,13 +5,21 @@ const Comment = require("../models/commentModel");
 const timeline = async (req, res) => {
   const userResult = await User.findById(req.user.id);
   const userFriendList = userResult.friendList;
-  const friendPosts = await Post.find({
-    directedTo: { $in: userFriendList.concat(req.user.id) },
-  })
-    .populate("user")
-    .sort("-timestamp")
-    .limit(25);
-  res.send({ friendPosts: friendPosts });
+  const [friends, friendPosts] = await Promise.all([
+    User.find(
+      {
+        _id: { $in: userFriendList },
+      },
+      "username first_name last_name"
+    ),
+    Post.find({
+      directedTo: { $in: userFriendList.concat(req.user.id) },
+    })
+      .populate("user")
+      .sort("-timestamp")
+      .limit(25),
+  ]);
+  res.send({ friendPosts: friendPosts, friends: friends });
 };
 
 const getPost = async (req, res) => {

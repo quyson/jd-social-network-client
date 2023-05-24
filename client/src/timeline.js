@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const Timeline = () => {
   const [posts, setPosts] = useState(null);
+  const [friends, setFriends] = useState(null);
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
   );
@@ -21,7 +22,31 @@ const Timeline = () => {
       });
   }, []);
   return (
-    <div>
+    <div className="bg-stone-900 min-h-screen">
+      <div>
+        <div>
+          <ul>
+            <li>Home</li>
+            <li>{currentUser}</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>Watch</li>
+            <li>Marketplace</li>
+            <li>Gaming</li>
+            <li>Feeds</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>Watch</li>
+            <li>Marketplace</li>
+            <li>Gaming</li>
+            <li>Feeds</li>
+          </ul>
+        </div>
+      </div>
       <h1>Timeline</h1>
       {posts
         ? posts.map((element) => {
@@ -49,6 +74,7 @@ const Timeline = () => {
             );
           })
         : null}
+      <div>{}</div>
     </div>
   );
 };
