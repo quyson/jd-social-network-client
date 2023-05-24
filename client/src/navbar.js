@@ -15,26 +15,34 @@ const Navbar = () => {
   console.log(currentUser);
 
   return (
-    <div>
-      <h3>JD SOCIAL NETWORK</h3>
-      <div>
+    <div
+      className="flex bg-stone-800 p-3 items-center 
+    justify-between h-16 border-b-4 border-neutral-300 w-full px-8 sticky"
+    >
+      <h1 className="text-white font-bold text-xl">
+        <a href="/timeline">JD SOCIAL NETWORK</a>
+      </h1>
+      <div className="w-1/2 text-center">
         <form>
           <input
             id="search"
             name="search"
             placeholder="Search JD Network"
             onChange={(e) => setSearch(e.target.value)}
+            className="w-96 h-10 bg-stone-600 px-3 rounded-3xl text-white hover:bg-stone-500"
           ></input>
           <Link to={`/search/${search}`}>
             <button type="button">Search</button>
           </Link>
         </form>
+      </div>
+      <div className="flex gap-3.5 text-white">
+        <Notifications />
         <Link to={`/profile`}>
           <div>{currentUser}</div>
         </Link>
+        <Logout />
       </div>
-      <Notifications />
-      <Logout />
     </div>
   );
 };

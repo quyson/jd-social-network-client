@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import AcceptFriend from "./acceptFriend";
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const notifications = useSelector(
@@ -25,7 +26,9 @@ const Notifications = () => {
             if (element.status == "friendRequest") {
               return (
                 <div>
-                  <div>{element.name} has sent you a friend request</div>
+                  <Link to={`/page/${element.from}`}>
+                    <div>{element.name} has sent you a friend request</div>
+                  </Link>
                   <AcceptFriend id={element.from} />
                 </div>
               );

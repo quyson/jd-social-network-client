@@ -19,7 +19,7 @@ const Router = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (token != "null") {
       axios
         .get("http://localhost:8000/getUser", {
           headers: { Authorization: token },
@@ -27,6 +27,8 @@ const Router = () => {
         .then((result) => {
           dispatch(setCurrentUser(result.data.user));
         });
+    } else {
+      return;
     }
   }, []);
   const currentUser = useSelector((state) => state.user.currentUser);
