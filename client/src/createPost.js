@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const CreatePost = () => {
   const [message, setMessage] = useState(null);
+  const currentUser = useSelector((state) => state && state.user.currentUser);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,12 +26,13 @@ const CreatePost = () => {
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex items-center">
       <textarea
         name="message"
         id="message"
-        placeholder="What's on your mind?"
+        placeholder={`What's on your mind, ${currentUser}?`}
         onChange={(e) => setMessage(e.target.value)}
+        className="w-96 h-10 p-2 bg-stone-600 rounded-3xl text-white hover:bg-stone-500"
       ></textarea>
       <button>Post</button>
     </form>
