@@ -16,8 +16,8 @@ const Navbar = () => {
 
   return (
     <div
-      className="flex bg-stone-800 p-3 items-center 
-    justify-between h-16 border-b-2 border-neutral-500 w-full px-8 sticky"
+      className="fixed flex bg-stone-800 p-3 items-center 
+    justify-between h-16 border-b-2 border-neutral-500 w-full px-8"
     >
       <h1 className="text-white font-bold text-xl">
         <Link to={`/timeline`}>JD SOCIAL NETWORK</Link>

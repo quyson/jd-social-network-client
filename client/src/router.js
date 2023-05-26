@@ -34,7 +34,7 @@ const Router = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
-      <div>{currentUser !== null && <Navbar />}</div>
+      <div className="fixed">{currentUser !== null && <Navbar />}</div>
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/timeline" element={<Timeline />}></Route>
