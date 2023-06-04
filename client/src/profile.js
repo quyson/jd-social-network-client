@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNotifications } from "./redux/slices/notificationsSlice";
 import LikePost from "./likePost";
 import LikeComment from "./likeComment";
+import Homebar from "./homebar";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -70,36 +71,7 @@ const Profile = () => {
       className="bg-stone-950 min-h-screen grid"
       style={{ gridTemplateColumns: "1fr 3fr" }}
     >
-      <div className="p-4 font-bold text-stone-100 text-base">
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg"> Home</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              {username}
-            </li>
-          </ul>
-        </div>
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              Marketplace
-            </li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
-          </ul>
-        </div>
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              Marketplace
-            </li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
-          </ul>
-        </div>
-      </div>
+      <Homebar />
       <div className="ml-8 text-white border-l-2 border-neutral-800">
         <div className="bg-stone-700 pt-8">
           <div className="mx-8 flex justify-start items-center gap-4 border-b-2 border-neutral-500 pb-4">

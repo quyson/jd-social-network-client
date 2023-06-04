@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CreatePost from "./createPost";
+import Homebar from "./homebar";
+import Friendbar from "./friendBar";
 
 const Timeline = () => {
   const [posts, setPosts] = useState(null);
@@ -44,41 +46,13 @@ const Timeline = () => {
         setFriends(result.data.friends);
       });
   }, []);
+
   return (
     <div
       className="bg-stone-950 min-h-screen grid"
       style={{ gridTemplateColumns: "1fr 2fr 1fr" }}
     >
-      <div className="p-4 font-bold text-stone-100 text-base min-w-[25%]">
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg"> Home</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              {currentUser}
-            </li>
-          </ul>
-        </div>
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              Marketplace
-            </li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
-          </ul>
-        </div>
-        <div className="border-b-2 border-neutral-700 py-2">
-          <ul>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-              Marketplace
-            </li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-            <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
-          </ul>
-        </div>
-      </div>
+      <Homebar />
       <div className="m-8 min-w-[50%]">
         <div className="p-4 flex flex-col bg-stone-800 items-center justify-center rounded-lg">
           <div className="pb-2 flex items-center w-full gap-6 border-b-2 border-stone-500">
@@ -172,22 +146,7 @@ const Timeline = () => {
             })
           : null}
       </div>
-      <div className="p-4 font-bold text-stone-100 text-sm min-w-[25%]">
-        <h1 className="pt-3 text-lg border-b-2 border-stone-600">Friends</h1>
-        <ul className="pt-1">
-          {friends
-            ? friends.map((friend) => {
-                return (
-                  <Link to={`/pages/${friend._id}`}>
-                    <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-                      {friend.first_name + " " + friend.last_name}
-                    </li>
-                  </Link>
-                );
-              })
-            : null}
-        </ul>
-      </div>
+      <Friendbar friends={friends} />
     </div>
   );
 };
