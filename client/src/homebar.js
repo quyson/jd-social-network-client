@@ -6,33 +6,27 @@ const Homebar = () => {
     (state) => state.user && state.user.currentUser
   );
   return (
-    <div className="p-4 font-bold text-stone-100 text-base min-w-[25%]">
-      <div className="border-b-2 border-neutral-700 py-2">
+    <div>
+      <div>
         <ul>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg"> Home</li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-            {currentUser}
-          </li>
+          <li> Home</li>
+          <li>{currentUser}</li>
         </ul>
       </div>
-      <div className="border-b-2 border-neutral-700 py-2">
+      <div>
         <ul>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-            Marketplace
-          </li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
+          <li>Watch</li>
+          <li>Marketplace</li>
+          <li>Gaming</li>
+          <li>Feeds</li>
         </ul>
       </div>
-      <div className="border-b-2 border-neutral-700 py-2">
+      <div>
         <ul>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Watch</li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">
-            Marketplace
-          </li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Gaming</li>
-          <li className="py-3 hover:bg-stone-600 hover:rounded-lg">Feeds</li>
+          <li>Watch</li>
+          <li>Marketplace</li>
+          <li>Gaming</li>
+          <li>Feeds</li>
         </ul>
       </div>
     </div>

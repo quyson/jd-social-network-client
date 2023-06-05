@@ -32,7 +32,6 @@ const CreatePost = () => {
         id="message"
         placeholder={`What's on your mind, ${currentUser}?`}
         onChange={(e) => setMessage(e.target.value)}
-        className="w-96 h-10 p-2 bg-stone-600 rounded-3xl text-white hover:bg-stone-500"
       ></textarea>
       <button>Post</button>
     </form>

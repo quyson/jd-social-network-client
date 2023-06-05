@@ -67,40 +67,23 @@ const Profile = () => {
   };
 
   return (
-    <div
-      className="bg-stone-950 min-h-screen grid"
-      style={{ gridTemplateColumns: "1fr 3fr" }}
-    >
+    <div style={{ gridTemplateColumns: "1fr 3fr" }}>
       <Homebar />
-      <div className="ml-8 text-white border-l-2 border-neutral-800">
-        <div className="bg-stone-700 pt-8">
-          <div className="mx-8 flex justify-start items-center gap-4 border-b-2 border-neutral-500 pb-4">
-            <div className="bg-blue-500 min-h-[12rem] min-w-[12rem] rounded-full text-center">
-              Profile
-            </div>
+      <div>
+        <div>
+          <div>
+            <div>Profile</div>
             <div>
-              <h1 className="text-4xl font-bold">{username}</h1>
-              <div className="text-xl font-bold">
-                {firstName + " " + lastName}
-              </div>
-              <div className="text-lg font-bold">
-                {friendList.length} friends
-              </div>
+              <h1>{username}</h1>
+              <div>{firstName + " " + lastName}</div>
+              <div>{friendList.length} friends</div>
             </div>
           </div>
-          <div className="w-full flex justify-around items-center py-3 font-bold text-lg">
-            <div className="min-h-[2.5rem] text-center flex-1 hover:bg-stone-600 hover:rounded-lg">
-              Posts
-            </div>
-            <div className="min-h-[2.5rem] text-center flex-1 hover:bg-stone-600 hover:rounded-lg">
-              About
-            </div>
-            <div className="min-h-[2.5rem] text-center flex-1 hover:bg-stone-600 hover:rounded-lg">
-              Friends
-            </div>
-            <div className="min-h-[2.5rem] text-center flex-1 hover:bg-stone-600 hover:rounded-lg">
-              Photos
-            </div>
+          <div>
+            <div>Posts</div>
+            <div>About</div>
+            <div>Friends</div>
+            <div>Photos</div>
           </div>
         </div>
         <div>

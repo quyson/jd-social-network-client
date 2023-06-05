@@ -32,19 +32,9 @@ const AcceptFriend = (props) => {
   return (
     <div>
       {!requestMessage ? (
-        <div className="flex gap-2 py-2">
-          <button
-            className="p-1 rounded-full border-2 border-white hover:bg-blue-600"
-            onClick={handleAccept}
-          >
-            Accept
-          </button>
-          <button
-            className="p-1 rounded-full border-2 border-white  hover:bg-blue-600"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+        <div>
+          <button onClick={handleAccept}>Accept</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       ) : (
         <div>{requestMessage}</div>

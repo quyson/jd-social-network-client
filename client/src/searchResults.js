@@ -25,25 +25,18 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <div
-      className="bg-stone-950 min-h-screen grid"
-      style={{ gridTemplateColumns: "1fr 2fr 1fr" }}
-    >
+    <div style={{ gridTemplateColumns: "1fr 2fr 1fr" }}>
       <Homebar />
-      <div className="mt-4 text-white">
-        <h1 className="font-bold text-3xl">Search:</h1>
+      <div>
+        <h1>Search:</h1>
         {results.length > 0 ? (
           results.map((user) => {
             return currentUser == user.username ? (
-              <Link to={`/profile`} className="font-bold text-2xl py-4 ">
+              <Link to={`/profile`}>
                 <div>{user.username} </div>
               </Link>
             ) : (
-              <Link
-                to={`/pages/${user._id}`}
-                key={user._id}
-                className="font-bold text-2xl py-4"
-              >
+              <Link to={`/pages/${user._id}`} key={user._id}>
                 <div>{user.username}</div>
               </Link>
             );
