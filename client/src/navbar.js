@@ -4,6 +4,7 @@ import Logout from "./logout";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Notifications from "./notifications";
+require("bootstrap");
 
 const Navbar = () => {
   const [search, setSearch] = useState(null);
@@ -28,31 +29,33 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <h1>
-        <Link to={`/timeline`}>JD SOCIAL NETWORK</Link>
-      </h1>
-      <div>
-        <form>
-          <input
-            id="search"
-            name="search"
-            placeholder="Search JD Network"
-            onChange={(e) => setSearch(e.target.value)}
-          ></input>
-          <Link to={`/search/${search}`}>
-            <button type="button">Search</button>
+    <nav className="container-fluid navbar fixed-top bg-dark">
+      <div className="row">
+        <h1 className="col">
+          <Link to={`/timeline`}>JD SOCIAL NETWORK</Link>
+        </h1>
+        <div>
+          <form>
+            <input
+              id="search"
+              name="search"
+              placeholder="Search JD Network"
+              onChange={(e) => setSearch(e.target.value)}
+            ></input>
+            <Link to={`/search/${search}`}>
+              <button type="button">Search</button>
+            </Link>
+          </form>
+        </div>
+        <div>
+          <Notifications />
+          <Link to={`/profile`}>
+            <div>{currentUser}</div>
           </Link>
-        </form>
+          <Logout />
+        </div>
       </div>
-      <div>
-        <Notifications />
-        <Link to={`/profile`}>
-          <div>{currentUser}</div>
-        </Link>
-        <Logout />
-      </div>
-    </div>
+    </nav>
   );
 };
 

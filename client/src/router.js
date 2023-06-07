@@ -6,7 +6,6 @@ import Logout from "./logout";
 import Check from "./check";
 import Profile from "./profile";
 import Navbar from "./navbar";
-import Facebook from "./facebook";
 import SearchResults from "./searchResults";
 import GetOthersPage from "./othersPage";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,7 +33,7 @@ const Router = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
-      <div>{currentUser !== null && <Navbar />}</div>
+      {currentUser !== null && <Navbar />}
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/timeline" element={<Timeline />}></Route>

@@ -31,28 +31,60 @@ const Login = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label for="username">Username</label>
-          <input
-            name="username"
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-          ></input>
-          <label for="password">Password</label>
-          <input
-            name="password"
-            id="password"
-            type={"password"}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-          <button type="submit">Log In</button>
-        </form>
-      </div>
-      <div>
-        <a href="/signup">Sign up</a>
-      </div>
+    <div
+      className="container-fluid"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="form-group d-flex flex-column justify-content-center align-items-center"
+        style={{ height: "50vh", width: "20vw" }}
+      >
+        <div
+          className="bg-dark rounded text-light mb-4 font-weight-bold d-flex justify-content-center align-items-center"
+          style={{ height: "7rem", width: "7rem", fontSize: "4rem" }}
+        >
+          JD
+        </div>
+        <h3 className=" mb-4">Please Sign In</h3>
+        <label for="username" className="sr-only">
+          Username
+        </label>
+        <input
+          name="username"
+          id="username"
+          onChange={(e) => setUsername(e.target.value)}
+          className="form-control mb-4"
+          placeholder="Username"
+          required
+        ></input>
+        <label for="password" className="sr-only">
+          Password
+        </label>
+        <input
+          name="password"
+          id="password"
+          type={"password"}
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-control mb-4"
+          placeholder="Password"
+          required
+        ></input>
+        <button
+          className="btn btn-lg btn-primary btn-block btn-sm mb-2"
+          type="submit"
+        >
+          Log In
+        </button>
+        <div>
+          <a href="/signup">Sign up</a>
+        </div>
+      </form>
     </div>
   );
 };
