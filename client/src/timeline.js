@@ -48,77 +48,83 @@ const Timeline = () => {
   }, []);
 
   return (
-    <div>
-      <Homebar />
-      <div>
-        <div>
+    <div className="container-fluid pt-3">
+      <div className="row">
+        <div className="col-3">
+          <Homebar />
+        </div>
+        <div className="col-6">
           <div>
-            <div>P</div>
             <div>
-              <CreatePost />
+              <div>P</div>
+              <div>
+                <CreatePost />
+              </div>
+            </div>
+            <div>
+              <div>Live Video</div>
+              <div>Upload Photo</div>
+              <div>Feeling Activity</div>
             </div>
           </div>
-          <div>
-            <div>Live Video</div>
-            <div>Upload Photo</div>
-            <div>Feeling Activity</div>
-          </div>
+          {posts
+            ? posts.map((element) => {
+                return (
+                  <div>
+                    {currentUser == element.user.username ? (
+                      <div>
+                        <Link to={`/profile`}>
+                          <div>P</div>
+                          <div>
+                            {element.user.username} - {element.user.first_name}{" "}
+                            {element.user.last_name}
+                          </div>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div>
+                        <Link to={`/pages/${element.user._id}`}>
+                          <div>P</div>
+                          <div>
+                            {element.user.username} - {element.user.first_name}{" "}
+                            {element.user.last_name}
+                          </div>
+                        </Link>
+                      </div>
+                    )}
+                    <div>
+                      <div>{element.message}</div>
+                    </div>
+                    <div>
+                      <div>{element.likes} Likes</div>
+                    </div>
+                    <div>
+                      <div>Like</div>
+                      <div>Share</div>
+                    </div>
+                    <div>
+                      <div>
+                        <div>P</div>
+                        <form onSubmit={(e) => handleComment(element._id, e)}>
+                          <textarea
+                            placeholder="Write a comment"
+                            name="message"
+                            onChange={(e) => setWriteComment(e.target.value)}
+                          ></textarea>
+                          <button>Comment</button>
+                        </form>
+                      </div>
+                      <div></div>
+                    </div>
+                  </div>
+                );
+              })
+            : null}
         </div>
-        {posts
-          ? posts.map((element) => {
-              return (
-                <div>
-                  {currentUser == element.user.username ? (
-                    <div>
-                      <Link to={`/profile`}>
-                        <div>P</div>
-                        <div>
-                          {element.user.username} - {element.user.first_name}{" "}
-                          {element.user.last_name}
-                        </div>
-                      </Link>
-                    </div>
-                  ) : (
-                    <div>
-                      <Link to={`/pages/${element.user._id}`}>
-                        <div>P</div>
-                        <div>
-                          {element.user.username} - {element.user.first_name}{" "}
-                          {element.user.last_name}
-                        </div>
-                      </Link>
-                    </div>
-                  )}
-                  <div>
-                    <div>{element.message}</div>
-                  </div>
-                  <div>
-                    <div>{element.likes} Likes</div>
-                  </div>
-                  <div>
-                    <div>Like</div>
-                    <div>Share</div>
-                  </div>
-                  <div>
-                    <div>
-                      <div>P</div>
-                      <form onSubmit={(e) => handleComment(element._id, e)}>
-                        <textarea
-                          placeholder="Write a comment"
-                          name="message"
-                          onChange={(e) => setWriteComment(e.target.value)}
-                        ></textarea>
-                        <button>Comment</button>
-                      </form>
-                    </div>
-                    <div></div>
-                  </div>
-                </div>
-              );
-            })
-          : null}
+        <div className="col-3">
+          <Friendbar friends={friends} />
+        </div>
       </div>
-      <Friendbar friends={friends} />
     </div>
   );
 };

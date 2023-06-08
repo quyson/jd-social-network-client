@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login";
 import Signup from "./signup";
@@ -12,10 +12,18 @@ import { useSelector, useDispatch } from "react-redux";
 import GetPost from "./post";
 import Timeline from "./timeline";
 import axios from "axios";
+import Notifications from "./notifications";
 import { setCurrentUser } from "./redux/slices/userSlice";
 
 const Router = () => {
   const dispatch = useDispatch();
+
+  const [visibleNotif, setVisibleNotif] = useState(null);
+
+  const handleNotif = (e) => {
+    setVisibleNotif(!visibleNotif);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token != "null") {
@@ -33,7 +41,8 @@ const Router = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
-      {currentUser !== null && <Navbar />}
+      {currentUser !== null && <Navbar handleNotif={handleNotif} />}
+      {visibleNotif ? <Notifications /> : null}
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/timeline" element={<Timeline />}></Route>

@@ -4,25 +4,13 @@ import Logout from "./logout";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Notifications from "./notifications";
-require("bootstrap");
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [search, setSearch] = useState(null);
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset;
-      setIsScrolled(scrollTop > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const notifications = useSelector(
+    (state) => state.notification && state.notification.latestNotifications
+  );
 
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
@@ -65,7 +53,11 @@ const Navbar = () => {
           className="col-4 d-flex justify-content-center"
           style={{ gap: "1rem" }}
         >
-          <Notifications />
+          {notifications.length > 0 && notifications ? (
+            <div onClick={props.handleNotif}>{notifications.length}</div>
+          ) : (
+            <div onClick={props.handleNotif}>Notifications</div>
+          )}
           <Link to={`/profile`}>
             <div>{currentUser}</div>
           </Link>
