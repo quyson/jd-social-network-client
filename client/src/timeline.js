@@ -48,9 +48,9 @@ const Timeline = () => {
   }, []);
 
   return (
-    <div className="container-fluid pt-3">
+    <div className="container-fluid">
       <div className="row">
-        <div className="col-3">
+        <div className="col-3 bg-dark border-right border-white">
           <Homebar />
         </div>
         <div className="col-6">

@@ -17,8 +17,8 @@ const Navbar = (props) => {
   );
 
   return (
-    <div className="container-fluid sticky-top">
-      <nav className="row p-2 navbar navbar-light bg-dark">
+    <div className="container-fluid sticky-top border-bottom border-white">
+      <nav className="row p-3 navbar navbar-light bg-dark">
         <div
           className="col-4 d-flex align-items-center"
           style={{ gap: "1rem" }}
@@ -54,9 +54,13 @@ const Navbar = (props) => {
           style={{ gap: "1rem" }}
         >
           {notifications.length > 0 && notifications ? (
-            <div onClick={props.handleNotif}>{notifications.length}</div>
+            <div data-toggle="modal" data-target="#notifModal">
+              {notifications.length}
+            </div>
           ) : (
-            <div onClick={props.handleNotif}>Notifications</div>
+            <div data-toggle="modal" data-target="#notifModal">
+              Notifications
+            </div>
           )}
           <Link to={`/profile`}>
             <div>{currentUser}</div>

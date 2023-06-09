@@ -18,12 +18,6 @@ import { setCurrentUser } from "./redux/slices/userSlice";
 const Router = () => {
   const dispatch = useDispatch();
 
-  const [visibleNotif, setVisibleNotif] = useState(null);
-
-  const handleNotif = (e) => {
-    setVisibleNotif(!visibleNotif);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token != "null") {
@@ -41,8 +35,8 @@ const Router = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
-      {currentUser !== null && <Navbar handleNotif={handleNotif} />}
-      {visibleNotif ? <Notifications /> : null}
+      {currentUser !== null && <Navbar />}
+      <Notifications />
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/timeline" element={<Timeline />}></Route>
