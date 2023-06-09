@@ -7,13 +7,15 @@ const Friendbar = (props) => {
   console.log(friends);
   return (
     <div className="pt-3" style={{ color: "white" }}>
-      <h4 className="font-weight-bold">Friends</h4>
+      <h4 className="font-weight-bold border-bottom border-white mb-3 p-1">
+        Friends
+      </h4>
       <div>
         {friends ? (
           friends.map((friend) => {
             return (
               <Link to={`/pages/${friend._id}`}>
-                <div className="mb-2">
+                <div className="mb-2 font-weight-bold">
                   {friend.first_name + " " + friend.last_name}
                 </div>
               </Link>

@@ -15,21 +15,30 @@ const Homebar = () => {
         color: "white",
       }}
     >
-      <div className="mb-4" style={{ listStyleType: "none" }}>
-        <div className="p-1 mb-2 border-bottom border-white">Home</div>
-        <div className="p-1 mb-2 border-bottom border-white">{currentUser}</div>
+      <div
+        className="mb-4 border-bottom border-white"
+        style={{ listStyleType: "none" }}
+      >
+        <div className="p-1 mb-2 ">Home</div>
+        <div className="p-1 mb-2 ">{currentUser}</div>
       </div>
-      <div className="mb-4" style={{ listStyleType: "none" }}>
-        <div className="p-1 mb-2 border-bottom border-white">Watch</div>
-        <div className="p-1 mb-2 border-bottom border-white">Marketplace</div>
-        <div className="p-1 mb-2 border-bottom border-white">Gaming</div>
-        <div className="p-1 mb-2 border-bottom border-white">Feeds</div>
+      <div
+        className="mb-4 border-bottom border-white"
+        style={{ listStyleType: "none" }}
+      >
+        <div className="p-1 mb-2 ">Watch</div>
+        <div className="p-1 mb-2 ">Marketplace</div>
+        <div className="p-1 mb-2 ">Gaming</div>
+        <div className="p-1 mb-2 ">Feeds</div>
       </div>
-      <div className="mb-4" style={{ listStyleType: "none" }}>
-        <div className="p-1 mb-2 border-bottom border-white">Watch</div>
-        <div className="p-1 mb-2 border-bottom border-white">Marketplace</div>
-        <div className="p-1 mb-2 border-bottom border-white">Gaming</div>
-        <div className="p-1 mb-2 border-bottom border-white">Feeds</div>
+      <div
+        className="mb-4 border-bottom border-white"
+        style={{ listStyleType: "none" }}
+      >
+        <div className="p-1 mb-2 ">Watch</div>
+        <div className="p-1 mb-2 ">Marketplace</div>
+        <div className="p-1 mb-2 ">Gaming</div>
+        <div className="p-1 mb-2 ">Feeds</div>
       </div>
     </div>
   );

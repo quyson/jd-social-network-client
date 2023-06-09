@@ -53,7 +53,7 @@ const Timeline = () => {
         <div className="col-3 bg-dark border-right border-white">
           <Homebar />
         </div>
-        <div className="col-7">
+        <div className="col-7 bg-dark">
           <div>
             <div>
               <div>P</div>

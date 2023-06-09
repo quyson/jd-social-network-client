@@ -25,27 +25,32 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <div style={{ gridTemplateColumns: "1fr 2fr 1fr" }}>
-      <Homebar />
-      <div>
-        <h1>Search:</h1>
-        {results.length > 0 ? (
-          results.map((user) => {
-            return currentUser == user.username ? (
-              <Link to={`/profile`}>
-                <div>{user.username} </div>
-              </Link>
-            ) : (
-              <Link to={`/pages/${user._id}`} key={user._id}>
-                <div>{user.username}</div>
-              </Link>
-            );
-          })
-        ) : (
-          <div>No Results to Show...</div>
-        )}
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-3 bg-dark border-right border-white">
+          <Homebar />
+        </div>
+        <div className="col bg-dark" style={{ color: "white" }}>
+          <h1 className="font-weight-bold pt-3 border-bottom border-white">
+            Search:
+          </h1>
+          {results.length > 0 ? (
+            results.map((user) => {
+              return currentUser == user.username ? (
+                <Link to={`/profile`}>
+                  <div className="card">{`${user.username} (${user.first_name} ${user.last_name})`}</div>
+                </Link>
+              ) : (
+                <Link to={`/pages/${user._id}`} key={user._id}>
+                  <div>{user.username}</div>
+                </Link>
+              );
+            })
+          ) : (
+            <div>No Results to Show...</div>
+          )}
+        </div>
       </div>
-      <Friendbar />{" "}
     </div>
   );
 };
