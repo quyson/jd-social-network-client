@@ -9,7 +9,7 @@ import Friendbar from "./friendBar";
 
 const Timeline = () => {
   const [posts, setPosts] = useState(null);
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState(null);
   const [writeComment, setWriteComment] = useState(null);
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
@@ -53,7 +53,7 @@ const Timeline = () => {
         <div className="col-3 bg-dark border-right border-white">
           <Homebar />
         </div>
-        <div className="col-6">
+        <div className="col-7">
           <div>
             <div>
               <div>P</div>
@@ -121,8 +121,8 @@ const Timeline = () => {
               })
             : null}
         </div>
-        <div className="col-3">
-          <Friendbar friends={friends} />
+        <div className="col-2 border-left border-white bg-dark">
+          {friends ? <Friendbar friends={friends} /> : null}
         </div>
       </div>
     </div>
