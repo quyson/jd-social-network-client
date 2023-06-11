@@ -55,7 +55,7 @@ const Timeline = () => {
         </div>
         <div className="col-7 bg-dark d-flex flex-column">
           <div
-            className="align-self-center bg-dark border border-white mt-4 pt-3 px-3 rounded d-flex flex-column"
+            className="align-self-center bg-dark border border-white my-4 pt-3 px-3 rounded d-flex flex-column"
             style={{ width: "75%", color: "white" }}
           >
             <div
@@ -86,59 +86,91 @@ const Timeline = () => {
               </div>
             </div>
           </div>
-          {posts
-            ? posts.map((element) => {
-                return (
-                  <div>
-                    {currentUser == element.user.username ? (
-                      <div>
-                        <Link to={`/profile`}>
-                          <div>P</div>
-                          <div>
-                            {element.user.username} - {element.user.first_name}{" "}
-                            {element.user.last_name}
-                          </div>
-                        </Link>
+          <div className="d-flex flex-column align-items-center">
+            {posts
+              ? posts.map((element) => {
+                  return (
+                    <div
+                      className="card my-3 bg-secondary"
+                      style={{ width: "80%" }}
+                    >
+                      {currentUser == element.user.username ? (
+                        <div
+                          className="card-header d-flex align-items-center"
+                          style={{ gap: "1rem" }}
+                        >
+                          <Link to={`/profile`}>
+                            <div
+                              className="rounded-circle bg-light"
+                              style={{ height: "3rem", width: "3rem" }}
+                            ></div>
+                          </Link>
+                          <Link to={`/profile`}>
+                            <div
+                              className="font-weight-bold"
+                              style={{ color: "black" }}
+                            >
+                              {element.user.username} -{" "}
+                              {element.user.first_name} {element.user.last_name}
+                            </div>
+                          </Link>
+                        </div>
+                      ) : (
+                        <div
+                          className="card-header d-flex align-items-center"
+                          style={{ gap: "1rem" }}
+                        >
+                          <Link to={`/pages/${element.user._id}`}>
+                            <div
+                              className="rounded-circle bg-light"
+                              style={{ height: "3rem", width: "3rem" }}
+                            ></div>
+                          </Link>
+                          <Link to={`/pages/${element.user._id}`}>
+                            <div
+                              className="font-weight-bold"
+                              style={{ color: "black" }}
+                            >
+                              {element.user.username} -{" "}
+                              {element.user.first_name} {element.user.last_name}
+                            </div>
+                          </Link>
+                        </div>
+                      )}
+                      <div className="card-body" style={{ minHeight: "25%" }}>
+                        <div className="card-text">
+                          <div>{element.message}</div>
+                        </div>
                       </div>
-                    ) : (
-                      <div>
-                        <Link to={`/pages/${element.user._id}`}>
-                          <div>P</div>
-                          <div>
-                            {element.user.username} - {element.user.first_name}{" "}
-                            {element.user.last_name}
-                          </div>
-                        </Link>
+
+                      <div className="border-top border-bottom border-dark">
+                        <div className="pl-4">{element.likes} Likes</div>
                       </div>
-                    )}
-                    <div>
-                      <div>{element.message}</div>
-                    </div>
-                    <div>
-                      <div>{element.likes} Likes</div>
-                    </div>
-                    <div>
-                      <div>Like</div>
-                      <div>Share</div>
-                    </div>
-                    <div>
-                      <div>
-                        <div>P</div>
-                        <form onSubmit={(e) => handleComment(element._id, e)}>
-                          <textarea
-                            placeholder="Write a comment"
-                            name="message"
-                            onChange={(e) => setWriteComment(e.target.value)}
-                          ></textarea>
-                          <button>Comment</button>
-                        </form>
+                      <div className="row font-weight-bold">
+                        <div
+                          className="col p-3 border-right  border-dark"
+                          style={{ textAlign: "center" }}
+                        >
+                          Like
+                        </div>
+                        <div
+                          className="col p-3 border-right  border-dark"
+                          style={{ textAlign: "center" }}
+                        >
+                          Share
+                        </div>
+                        <div
+                          className="col p-3 "
+                          style={{ textAlign: "center" }}
+                        >
+                          Comment
+                        </div>
                       </div>
-                      <div></div>
                     </div>
-                  </div>
-                );
-              })
-            : null}
+                  );
+                })
+              : null}
+          </div>
         </div>
         <div className="col-2 border-left border-white bg-dark">
           {friends ? <Friendbar friends={friends} /> : null}
