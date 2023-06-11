@@ -38,11 +38,21 @@ const SearchResults = () => {
             results.map((user) => {
               return currentUser == user.username ? (
                 <Link to={`/profile`}>
-                  <div className="card">{`${user.username} (${user.first_name} ${user.last_name})`}</div>
+                  <div className="card">
+                    <div className="card-body">
+                      <h4 className="card-title font-weight-bold">{`${user.username}`}</h4>
+                      <div className="card-text">{`Name: ${user.first_name} ${user.last_name}`}</div>
+                    </div>
+                  </div>
                 </Link>
               ) : (
                 <Link to={`/pages/${user._id}`} key={user._id}>
-                  <div>{user.username}</div>
+                  <div className="card">
+                    <div className="card-body">
+                      <h4 className="card-title font-weight-bold">{`${user.username}`}</h4>
+                      <div className="card-text">{`Name: ${user.first_name} ${user.last_name}`}</div>
+                    </div>
+                  </div>
                 </Link>
               );
             })
