@@ -70,18 +70,21 @@ const Timeline = () => {
             </div>
             <div className="row">
               <div
-                className="col py-3 border-right border-white"
+                className="col py-3 border-right border-white postButton"
                 style={{ textAlign: "center" }}
               >
                 Live Video
               </div>
               <div
-                className="col py-3  border-right border-white"
+                className="col py-3  border-right border-white postButton"
                 style={{ textAlign: "center" }}
               >
                 Upload Photo
               </div>
-              <div className="col py-3" style={{ textAlign: "center" }}>
+              <div
+                className="col py-3 postButton"
+                style={{ textAlign: "center" }}
+              >
                 Feeling Activity
               </div>
             </div>
@@ -144,11 +147,11 @@ const Timeline = () => {
                       </div>
 
                       <div className="border-top border-bottom border-dark">
-                        <div className="pl-4">{element.likes} Likes</div>
+                        <div className="pl-4 ">{element.likes} Likes</div>
                       </div>
                       <div className="row font-weight-bold">
                         <div
-                          className="col p-3 border-right  border-dark"
+                          className="col p-3 border-right  border-dark "
                           style={{ textAlign: "center" }}
                         >
                           Like

@@ -1,0 +1,24 @@
+.card:hover {
+  cursor: pointer;
+  background-color: rgb(177, 177, 177);
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.listElement {
+  color: white;
+}
+
+.listElement:hover {
+  cursor: pointer;
+  background-color: rgb(177, 177, 177);
+  border-radius: 50px;
+  text-underline-offset: none;
+}
+
+.postButton:hover {
+  cursor: pointer;
+  background-color: rgb(119, 119, 119);
+}
