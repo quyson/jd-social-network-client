@@ -53,18 +53,37 @@ const Timeline = () => {
         <div className="col-3 bg-dark border-right border-white">
           <Homebar />
         </div>
-        <div className="col-7 bg-dark">
-          <div>
-            <div>
-              <div>P</div>
-              <div>
-                <CreatePost />
-              </div>
+        <div className="col-7 bg-dark d-flex flex-column">
+          <div
+            className="align-self-center bg-dark border border-white mt-4 pt-3 px-3 rounded d-flex flex-column"
+            style={{ width: "75%", color: "white" }}
+          >
+            <div
+              className="d-flex pb-3 border-bottom border-white"
+              style={{ gap: "1rem" }}
+            >
+              <div
+                className="rounded-circle bg-light"
+                style={{ height: "3rem", width: "3rem" }}
+              ></div>
+              <CreatePost />
             </div>
-            <div>
-              <div>Live Video</div>
-              <div>Upload Photo</div>
-              <div>Feeling Activity</div>
+            <div className="row">
+              <div
+                className="col py-3 border-right border-white"
+                style={{ textAlign: "center" }}
+              >
+                Live Video
+              </div>
+              <div
+                className="col py-3  border-right border-white"
+                style={{ textAlign: "center" }}
+              >
+                Upload Photo
+              </div>
+              <div className="col py-3" style={{ textAlign: "center" }}>
+                Feeling Activity
+              </div>
             </div>
           </div>
           {posts

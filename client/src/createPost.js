@@ -26,14 +26,15 @@ const CreatePost = () => {
       });
   };
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <form onSubmit={handleSubmit} className="d-flex flex-grow-1">
       <textarea
         name="message"
         id="message"
         placeholder={`What's on your mind, ${currentUser}?`}
         onChange={(e) => setMessage(e.target.value)}
+        className="form-control"
       ></textarea>
-      <button>Post</button>
+      <button className="btn btn-primary">Post</button>
     </form>
   );
 };
