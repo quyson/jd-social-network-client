@@ -42,7 +42,7 @@ const Timeline = () => {
         headers: { Authorization: token },
       })
       .then((result) => {
-        setPosts(result.data.friendPosts);
+        setPosts(result.data.friendPosts.reverse());
         setFriends(result.data.friends);
       });
   }, []);

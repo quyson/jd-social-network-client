@@ -42,7 +42,7 @@ const Profile = () => {
         headers: { Authorization: token },
       })
       .then((result) => {
-        dispatch(setNotifications(result.data.notifications));
+        dispatch(setNotifications(result.data.notifications.reverse()));
       });
   }, []);
 
