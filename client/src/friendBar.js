@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import "./styles.css";
 
 const Friendbar = (props) => {
   const [friends, setFriends] = useState(props.friends);
@@ -15,7 +16,7 @@ const Friendbar = (props) => {
           friends.map((friend) => {
             return (
               <Link to={`/pages/${friend._id}`}>
-                <div className="mb-2 font-weight-bold">
+                <div className="p-2 font-weight-bold friend">
                   {friend.first_name + " " + friend.last_name}
                 </div>
               </Link>

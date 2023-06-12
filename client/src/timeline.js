@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setNotifications } from "./redux/slices/notificationsSlice";
 import CreatePost from "./createPost";
 import Homebar from "./homebar";
 import Friendbar from "./friendBar";
@@ -14,6 +15,8 @@ const Timeline = () => {
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
   );
+
+  const dispatch = useDispatch();
 
   const handleComment = (postId, e) => {
     e.preventDefault();
@@ -44,6 +47,13 @@ const Timeline = () => {
       .then((result) => {
         setPosts(result.data.friendPosts.reverse());
         setFriends(result.data.friends);
+      });
+    axios
+      .get("http://localhost:8000/notifications", {
+        headers: { Authorization: token },
+      })
+      .then((result) => {
+        dispatch(setNotifications(result.data.notifications.reverse()));
       });
   }, []);
 

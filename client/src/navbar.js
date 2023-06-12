@@ -50,11 +50,16 @@ const Navbar = (props) => {
           </form>
         </div>
         <div
-          className="col-4 d-flex justify-content-center"
+          className="col-4 d-flex justify-content-center align-items-center"
           style={{ gap: "1rem" }}
         >
           {notifications.length > 0 && notifications ? (
-            <div data-toggle="modal" data-target="#notifModal">
+            <div
+              data-toggle="modal"
+              data-target="#notifModal"
+              className="rounded-circle bg-success d-flex justify-content-center align-items-center font-weight-bold"
+              style={{ height: "2rem", width: "2rem", color: "white" }}
+            >
               {notifications.length}
             </div>
           ) : (

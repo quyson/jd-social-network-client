@@ -15,10 +15,20 @@
   cursor: pointer;
   background-color: rgb(177, 177, 177);
   border-radius: 50px;
-  text-underline-offset: none;
 }
 
 .postButton:hover {
   cursor: pointer;
   background-color: rgb(119, 119, 119);
+}
+
+.friend {
+  color: white;
+}
+
+.friend:hover {
+  cursor: pointer;
+  background-color: rgb(119, 119, 119);
+  border-radius: 50px;
+  text-decoration: none;
 }

@@ -28,7 +28,9 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={(e) => handleLogout(e)}>Log Out</button>
+      <button className="btn btn-danger" onClick={(e) => handleLogout(e)}>
+        Log Out
+      </button>
     </div>
   );
 };

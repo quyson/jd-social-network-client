@@ -4,7 +4,7 @@ const getNotifications = (req, res, next) => {
   User.findById(req.user.id)
     .then((result) => {
       if (result.notifications.length > 15) {
-        result.notifications.pop();
+        result.notifications.shift();
       }
       const uniqueArr = [
         ...new Set(result.notifications.map((obj) => JSON.stringify(obj))),

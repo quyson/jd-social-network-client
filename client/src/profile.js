@@ -3,13 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "./createPost";
 import { useSelector, useDispatch } from "react-redux";
-import { setNotifications } from "./redux/slices/notificationsSlice";
 import LikePost from "./likePost";
 import LikeComment from "./likeComment";
 import Homebar from "./homebar";
 
 const Profile = () => {
-  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [username, setUsername] = useState(null);
@@ -36,13 +34,6 @@ const Profile = () => {
         setDob(result.data.resultUser.dob);
         setSex(result.data.resultUser.sex);
         setPosts(result.data.resultPost);
-      });
-    axios
-      .get("http://localhost:8000/notifications", {
-        headers: { Authorization: token },
-      })
-      .then((result) => {
-        dispatch(setNotifications(result.data.notifications.reverse()));
       });
   }, []);
 
