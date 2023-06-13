@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import LikePost from "./likePost";
 import LikeComment from "./likeComment";
 import Homebar from "./homebar";
+import { Link } from "react-router-dom";
+import "./styles.css";
 
 const Profile = () => {
   const [firstName, setFirstName] = useState(null);
@@ -33,7 +35,7 @@ const Profile = () => {
         setBio(result.data.resultUser.bio);
         setDob(result.data.resultUser.dob);
         setSex(result.data.resultUser.sex);
-        setPosts(result.data.resultPost);
+        setPosts(result.data.resultPost.reverse());
       });
   }, []);
 
@@ -58,75 +60,191 @@ const Profile = () => {
   };
 
   return (
-    <div style={{ gridTemplateColumns: "1fr 3fr" }}>
-      <Homebar />
-      <div>
-        <div>
-          <div>
-            <div>Profile</div>
-            <div>
-              <h1>{username}</h1>
-              <div>{firstName + " " + lastName}</div>
-              <div>{friendList.length} friends</div>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-3 bg-dark border-right border-white">
+          <Homebar />
+        </div>
+        <div className="col-9 d-flex flex-column align-items-center bg-dark">
+          <div className="profile-header px-3 pt-3 border-bottom border-white">
+            <div className="d-flex" style={{ gap: "2rem" }}>
+              <div
+                className="bg-white rounded-circle"
+                style={{ width: "13rem", height: "13rem" }}
+              ></div>
+              <div style={{ color: "white" }}>
+                <h1 className="font-weight-bold">{username}</h1>
+                <h4 className="font-weight-bold">
+                  {firstName + " " + lastName}
+                </h4>
+                <div className="font-weight-bold">
+                  {friendList.length} friends
+                </div>
+              </div>
+            </div>
+            <div
+              className="row mt-3"
+              style={{ color: "white", textAlign: "center" }}
+            >
+              <div className="col profile-tab border-top border-left border-right border-white">
+                Posts
+              </div>
+              <div className="col profile-tab border-top border-right border-white">
+                About
+              </div>
+              <div className="col profile-tab border-right  border-top border-white">
+                Friends
+              </div>
+              <div className="col profile-tab border-right  border-top border-white">
+                Photos
+              </div>
             </div>
           </div>
-          <div>
-            <div>Posts</div>
-            <div>About</div>
-            <div>Friends</div>
-            <div>Photos</div>
+          <div
+            className="align-self-center bg-dark border border-white my-4 pt-3 px-3 rounded d-flex flex-column"
+            style={{ width: "75%", color: "white" }}
+          >
+            <div
+              className="d-flex pb-3 border-bottom border-white"
+              style={{ gap: "1rem" }}
+            >
+              <div
+                className="rounded-circle bg-light"
+                style={{ height: "3rem", width: "3rem" }}
+              ></div>
+              <CreatePost />
+            </div>
+            <div className="row">
+              <div
+                className="col py-3 border-right border-white postButton"
+                style={{ textAlign: "center" }}
+              >
+                Live Video
+              </div>
+              <div
+                className="col py-3  border-right border-white postButton"
+                style={{ textAlign: "center" }}
+              >
+                Upload Photo
+              </div>
+              <div
+                className="col py-3 postButton"
+                style={{ textAlign: "center" }}
+              >
+                Feeling Activity
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <CreatePost />
-        </div>
-        <div>
-          <div>{firstName}</div>
-          <div>{lastName}</div>
-          <div>{username}</div>
-        </div>
-        {posts
-          ? posts.map((element) => {
-              return (
-                <div>
-                  <div>
-                    {element.user.username} - {element.user.first_name}{" "}
-                    {element.user.last_name}
-                  </div>
-                  <div>{element.message}</div>
-                  <div>{element.likes} likes</div>
-                  <div>
-                    <LikePost postId={element._id} />
-                  </div>
-                  {element.comments
-                    ? element.comments.map((comment) => {
-                        return (
-                          <div>
-                            <div>
-                              {comment.user.first_name} {comment.user.last_name}{" "}
-                              -{comment.user.username}
-                            </div>
-                            <div>{comment.message}</div>
-                            <div>{comment.likes} Likes</div>
-                            <LikeComment commentId={comment._id} />
+          {posts
+            ? posts.map((element) => {
+                return (
+                  <div
+                    className="card my-3 bg-secondary"
+                    style={{ width: "80%" }}
+                  >
+                    {username == element.user.username ? (
+                      <div
+                        className="card-header d-flex align-items-center"
+                        style={{ gap: "1rem" }}
+                      >
+                        <Link to={`/profile`}>
+                          <div
+                            className="rounded-circle bg-light"
+                            style={{ height: "3rem", width: "3rem" }}
+                          ></div>
+                        </Link>
+                        <Link to={`/profile`}>
+                          <div
+                            className="font-weight-bold"
+                            style={{ color: "black" }}
+                          >
+                            {element.user.username} - {element.user.first_name}{" "}
+                            {element.user.last_name}
                           </div>
-                        );
-                      })
-                    : null}
-                  <div>
-                    <form onSubmit={(e) => handleComment(element._id, e)}>
-                      <textarea
-                        placeholder="Write a comment"
-                        name="message"
-                        onChange={(e) => setWriteComment(e.target.value)}
-                      ></textarea>
-                      <button>Comment</button>
-                    </form>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div
+                        className="card-header d-flex align-items-center"
+                        style={{ gap: "1rem" }}
+                      >
+                        <Link to={`/pages/${element.user._id}`}>
+                          <div
+                            className="rounded-circle bg-light"
+                            style={{ height: "3rem", width: "3rem" }}
+                          ></div>
+                        </Link>
+                        <Link to={`/pages/${element.user._id}`}>
+                          <div
+                            className="font-weight-bold"
+                            style={{ color: "black" }}
+                          >
+                            {element.user.username} - {element.user.first_name}{" "}
+                            {element.user.last_name}
+                          </div>
+                        </Link>
+                      </div>
+                    )}
+                    <div className="card-body" style={{ minHeight: "25%" }}>
+                      <div className="card-text">
+                        <div>{element.message}</div>
+                      </div>
+                    </div>
+                    <div className="border-top border-bottom border-dark">
+                      <div className="pl-4 ">{element.likes} Likes</div>
+                    </div>
+                    <div className="row font-weight-bold border-bottom border-dark">
+                      <div
+                        className="col p-3 border-right  border-dark "
+                        style={{ textAlign: "center" }}
+                      >
+                        <LikePost postId={element._id} />
+                      </div>
+                      <div
+                        className="col p-3 border-right  border-dark"
+                        style={{ textAlign: "center" }}
+                      >
+                        Share
+                      </div>
+                      <div className="col p-3 " style={{ textAlign: "center" }}>
+                        Comment
+                      </div>
+                    </div>
+                    {element.comments
+                      ? element.comments.map((comment) => {
+                          return (
+                            <div className="p-3">
+                              <div className="d-flex align-items-center">
+                                <div
+                                  className="rounded-circle bg-light"
+                                  style={{ height: "2rem", width: "2rem" }}
+                                ></div>
+                                {element.user.username} -{" "}
+                                {element.user.first_name}{" "}
+                                {element.user.last_name}
+                                <div>{comment.likes} Likes</div>
+                              </div>
+                              <div>{comment.message}</div>
+                              <LikeComment commentId={comment._id} />
+                            </div>
+                          );
+                        })
+                      : null}
+                    <div>
+                      <form onSubmit={(e) => handleComment(element._id, e)}>
+                        <textarea
+                          placeholder="Write a comment"
+                          name="message"
+                          onChange={(e) => setWriteComment(e.target.value)}
+                        ></textarea>
+                        <button>Comment</button>
+                      </form>
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          : null}
+                );
+              })
+            : null}
+        </div>
       </div>
     </div>
   );

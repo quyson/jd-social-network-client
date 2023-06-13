@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Friendbar from "./friendBar";
 import Homebar from "./homebar";
+import "./styles.css";
 
 const SearchResults = () => {
   const searchQuery = useParams();
@@ -38,8 +39,11 @@ const SearchResults = () => {
             results.map((user) => {
               return currentUser == user.username ? (
                 <Link to={`/profile`}>
-                  <div className="card">
-                    <div className="card-body">
+                  <div
+                    className="card bg-secondary mb-1"
+                    style={{ color: "black" }}
+                  >
+                    <div className="card-body search-card">
                       <h4 className="card-title font-weight-bold">{`${user.username}`}</h4>
                       <div className="card-text">{`Name: ${user.first_name} ${user.last_name}`}</div>
                     </div>
@@ -47,8 +51,11 @@ const SearchResults = () => {
                 </Link>
               ) : (
                 <Link to={`/pages/${user._id}`} key={user._id}>
-                  <div className="card bg-secondary" style={{ color: "black" }}>
-                    <div className="card-body">
+                  <div
+                    className="card bg-secondary mb-1"
+                    style={{ color: "black" }}
+                  >
+                    <div className="card-body search-card">
                       <h4 className="card-title font-weight-bold">{`${user.username}`}</h4>
                       <div className="card-text">{`Name: ${user.first_name} ${user.last_name}`}</div>
                     </div>

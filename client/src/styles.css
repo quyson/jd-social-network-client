@@ -32,3 +32,18 @@
   border-radius: 50px;
   text-decoration: none;
 }
+
+.search-card:hover {
+  cursor: pointer;
+  background-color: rgb(179, 179, 179);
+  text-decoration: none;
+}
+
+.profile-header {
+  width: fill;
+}
+
+.profile-tab:hover {
+  cursor: pointer;
+  background-color: rgb(138, 137, 137);
+}
