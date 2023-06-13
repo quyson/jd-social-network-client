@@ -185,7 +185,7 @@ const Profile = () => {
                         </Link>
                       </div>
                     )}
-                    <div className="card-body" style={{ minHeight: "25%" }}>
+                    <div className="card-body">
                       <div className="card-text">
                         <div>{element.message}</div>
                       </div>
@@ -210,35 +210,55 @@ const Profile = () => {
                         Comment
                       </div>
                     </div>
-                    {element.comments
-                      ? element.comments.map((comment) => {
-                          return (
-                            <div className="p-3">
-                              <div className="d-flex align-items-center">
+                    <div className="container p-3">
+                      {element.comments
+                        ? element.comments.map((comment) => {
+                            return (
+                              <div
+                                className="card mb-2 bg-dark p-1"
+                                style={{ color: "white", fontSize: ".8rem" }}
+                              >
                                 <div
-                                  className="rounded-circle bg-light"
-                                  style={{ height: "2rem", width: "2rem" }}
-                                ></div>
-                                {element.user.username} -{" "}
-                                {element.user.first_name}{" "}
-                                {element.user.last_name}
-                                <div>{comment.likes} Likes</div>
+                                  className="d-flex align-items-center"
+                                  style={{ gap: "1rem" }}
+                                >
+                                  <div
+                                    className="rounded-circle bg-light"
+                                    style={{ height: "2rem", width: "2rem" }}
+                                  ></div>
+                                  <div
+                                    className="font-weight-bold"
+                                    style={{ fontSize: ".9rem" }}
+                                  >{`${element.user.username} (${element.user.first_name} ${element.user.last_name})`}</div>
+                                </div>
+                                <div className="card-text pl-5 pb-3">
+                                  <div>{comment.message}</div>
+                                </div>
+                                <div
+                                  className="d-flex align-items-center"
+                                  style={{ gap: "1rem" }}
+                                >
+                                  <div>{comment.likes} Likes</div>
+                                  <LikeComment commentId={comment._id} />
+                                </div>
                               </div>
-                              <div>{comment.message}</div>
-                              <LikeComment commentId={comment._id} />
-                            </div>
-                          );
-                        })
-                      : null}
-                    <div>
-                      <form onSubmit={(e) => handleComment(element._id, e)}>
-                        <textarea
-                          placeholder="Write a comment"
-                          name="message"
-                          onChange={(e) => setWriteComment(e.target.value)}
-                        ></textarea>
-                        <button>Comment</button>
-                      </form>
+                            );
+                          })
+                        : null}
+                      <div className="pb-2">
+                        <form
+                          className="d-flex"
+                          onSubmit={(e) => handleComment(element._id, e)}
+                        >
+                          <textarea
+                            placeholder="Write a comment"
+                            name="message"
+                            onChange={(e) => setWriteComment(e.target.value)}
+                            className="form-control"
+                          ></textarea>
+                          <button className="btn btn-primary">Comment</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 );
