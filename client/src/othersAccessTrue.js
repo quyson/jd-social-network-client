@@ -94,7 +94,41 @@ const FullView = (props) => {
               </div>
             </div>
           </div>
-          <CreateOtherPost />
+          <div
+            className="align-self-center bg-dark border border-white my-4 pt-3 px-3 rounded d-flex flex-column"
+            style={{ width: "75%", color: "white" }}
+          >
+            <div
+              className="d-flex pb-3 border-bottom border-white"
+              style={{ gap: "1rem" }}
+            >
+              <div
+                className="rounded-circle bg-light"
+                style={{ height: "3rem", width: "3rem" }}
+              ></div>
+              <CreateOtherPost firstName={firstName} />
+            </div>
+            <div className="row">
+              <div
+                className="col py-3 border-right border-white postButton"
+                style={{ textAlign: "center" }}
+              >
+                Live Video
+              </div>
+              <div
+                className="col py-3  border-right border-white postButton"
+                style={{ textAlign: "center" }}
+              >
+                Upload Photo
+              </div>
+              <div
+                className="col py-3 postButton"
+                style={{ textAlign: "center" }}
+              >
+                Feeling Activity
+              </div>
+            </div>
+          </div>
           {posts
             ? posts.map((element) => {
                 return (

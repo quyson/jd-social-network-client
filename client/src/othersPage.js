@@ -36,7 +36,7 @@ const GetOthersPage = () => {
           setBio(result.data.resultUser.bio);
           setDob(result.data.resultUser.dob);
           setSex(result.data.resultUser.sex);
-          setPosts(result.data.resultPost);
+          setPosts(result.data.resultPost.reverse());
           setFriends(true);
           setAccess(true);
           setLoading(false);
@@ -49,7 +49,7 @@ const GetOthersPage = () => {
           setBio(result.data.resultUser.bio);
           setDob(result.data.resultUser.dob);
           setSex(result.data.resultUser.sex);
-          setPosts(result.data.resultPost);
+          setPosts(result.data.resultPost.reverse());
           setFriends(false);
           setAccess(true);
           setLoading(false);
