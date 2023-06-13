@@ -245,7 +245,7 @@ const Profile = () => {
                             );
                           })
                         : null}
-                      <div className="pb-2">
+                      <div className="py-2">
                         <form
                           className="d-flex"
                           onSubmit={(e) => handleComment(element._id, e)}
