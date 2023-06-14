@@ -7,6 +7,7 @@ import LikePost from "./likePost";
 import LikeComment from "./likeComment";
 import Homebar from "./homebar";
 import { Link } from "react-router-dom";
+import Post from "./post";
 import "./styles.css";
 
 const Profile = () => {
@@ -19,6 +20,16 @@ const Profile = () => {
   const [sex, setSex] = useState(null);
   const [posts, setPosts] = useState([]);
   const [writeComment, setWriteComment] = useState(null);
+  const [currentPostModal, setCurrentPostModal] = useState(null);
+
+  const handleCurrentPostModal = (post) => {
+    setCurrentPostModal(post);
+  };
+
+  const handleClosePostModal = () => {
+    setCurrentPostModal(null);
+    console.log(currentPostModal);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -59,6 +70,7 @@ const Profile = () => {
       });
   };
 
+  console.log(currentPostModal);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -66,6 +78,12 @@ const Profile = () => {
           <Homebar />
         </div>
         <div className="col-9 d-flex flex-column align-items-center bg-dark">
+          {currentPostModal && (
+            <Post
+              currentPostModal={currentPostModal}
+              handleClosePostModal={handleClosePostModal}
+            />
+          )}
           <div className="profile-header px-3 pt-3 border-bottom border-white">
             <div className="d-flex" style={{ gap: "2rem" }}>
               <div
@@ -141,6 +159,9 @@ const Profile = () => {
                   <div
                     className="card my-3 bg-secondary"
                     style={{ width: "80%" }}
+                    onClick={(e) => handleCurrentPostModal(element)}
+                    data-toggle="modal"
+                    data-target="#postModal"
                   >
                     {username == element.user.username ? (
                       <div
