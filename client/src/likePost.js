@@ -22,7 +22,9 @@ const LikePost = (props) => {
 
   return (
     <div>
-      <button onClick={handleLike}>Like</button>
+      <button className="btn btn-sm btn-primary rounded" onClick={handleLike}>
+        Like
+      </button>
     </div>
   );
 };

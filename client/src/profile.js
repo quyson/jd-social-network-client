@@ -82,6 +82,7 @@ const Profile = () => {
             <Post
               currentPostModal={currentPostModal}
               handleClosePostModal={handleClosePostModal}
+              username={username}
             />
           )}
           <div className="profile-header px-3 pt-3 border-bottom border-white">

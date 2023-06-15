@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import LikePost from "./likePost";
 import LikeComment from "./likeComment";
 import { current } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Post = (props, handleCloseModal) => {
   const [writeComment, setWriteComment] = useState(null);
@@ -34,7 +36,45 @@ const Post = (props, handleCloseModal) => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h3>{props.currentPostModal.user.username}</h3>
+            {props.username == props.currentPostModal.user.username ? (
+              <div
+                className="card-header d-flex align-items-center"
+                style={{ gap: "1rem" }}
+              >
+                <Link to={`/profile`}>
+                  <div
+                    className="rounded-circle bg-light"
+                    style={{ height: "3rem", width: "3rem" }}
+                  ></div>
+                </Link>
+                <Link to={`/profile`}>
+                  <div className="font-weight-bold" style={{ color: "black" }}>
+                    {props.currentPostModal.user.username} -{" "}
+                    {props.currentPostModal.user.first_name}{" "}
+                    {props.currentPostModal.user.last_name}
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <div
+                className="card-header d-flex align-items-center"
+                style={{ gap: "1rem" }}
+              >
+                <Link to={`/pages/${props.currentPostModal.user._id}`}>
+                  <div
+                    className="rounded-circle bg-light"
+                    style={{ height: "3rem", width: "3rem" }}
+                  ></div>
+                </Link>
+                <Link to={`/pages/${props.currentPostModal.user._id}`}>
+                  <div className="font-weight-bold" style={{ color: "black" }}>
+                    {props.currentPostModal.user.username} -{" "}
+                    {props.currentPostModal.user.first_name}{" "}
+                    {props.currentPostModal.user.last_name}
+                  </div>
+                </Link>
+              </div>
+            )}
             <button
               type="button"
               class="close"
@@ -47,6 +87,12 @@ const Post = (props, handleCloseModal) => {
           </div>
           <div className="modal-body">
             <p>{props.currentPostModal.message}</p>
+            <div className="border-top border-bottom border-dark">
+              <div className="pl-4 ">{props.currentPostModal.likes} Likes</div>
+            </div>
+            <div className="col p-3">
+              <LikePost postId={props.currentPostModal._id} />
+            </div>
             <div className="container p-3">
               {props.currentPostModal.comments
                 ? props.currentPostModal.comments.map((comment) => {
