@@ -196,15 +196,26 @@ const Profile = () => {
                             style={{ height: "3rem", width: "3rem" }}
                           ></div>
                         </Link>
-                        <Link to={`/pages/${element.user._id}`}>
+                        <div
+                          className="d-flex align-items-center"
+                          style={{ gap: "1rem" }}
+                        >
+                          <Link to={`/pages/${element.user._id}`}>
+                            <div
+                              className="font-weight-bold"
+                              style={{ color: "black" }}
+                            >
+                              {element.user.username} -{" "}
+                              {element.user.first_name} {element.user.last_name}
+                            </div>
+                          </Link>
                           <div
                             className="font-weight-bold"
-                            style={{ color: "black" }}
+                            style={{ fontSize: ".9rem", color: "black" }}
                           >
-                            {element.user.username} - {element.user.first_name}{" "}
-                            {element.user.last_name}
+                            {`> ${username} (${firstName} ${lastName})`}
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     )}
                     <div className="card-body">
