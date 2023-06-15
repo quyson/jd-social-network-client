@@ -251,7 +251,7 @@ const Profile = () => {
                                   <div
                                     className="font-weight-bold"
                                     style={{ fontSize: ".9rem" }}
-                                  >{`${element.user.username} (${element.user.first_name} ${element.user.last_name})`}</div>
+                                  >{`${comment.user.username} (${comment.user.first_name} ${comment.user.last_name})`}</div>
                                 </div>
                                 <div className="card-text pl-5 pb-3">
                                   <div>{comment.message}</div>

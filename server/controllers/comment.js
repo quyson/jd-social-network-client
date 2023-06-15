@@ -4,6 +4,8 @@ const Comment = require("../models/commentModel");
 
 const createComment = async (req, res) => {
   try {
+    console.log(req.user.id);
+    console.log(req.user.username);
     const newComment = new Comment({
       message: req.body.message,
       likes: 0,

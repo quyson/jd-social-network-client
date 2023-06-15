@@ -3,23 +3,44 @@ const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 
 const timeline = async (req, res) => {
-  const userResult = await User.findById(req.user.id);
-  const userFriendList = userResult.friendList;
-  const [friends, friendPosts] = await Promise.all([
-    User.find(
-      {
-        _id: { $in: userFriendList },
-      },
-      "username first_name last_name"
-    ),
-    Post.find({
-      directedTo: { $in: userFriendList.concat(req.user.id) },
-    })
-      .populate("user")
-      .sort("-timestamp")
-      .limit(25),
-  ]);
-  res.send({ friendPosts: friendPosts, friends: friends });
+  try {
+    const userResult = await User.findById(req.user.id);
+    const userFriendList = userResult.friendList;
+    const [friends, friendPosts] = await Promise.all([
+      User.find(
+        {
+          _id: { $in: userFriendList },
+        },
+        "username first_name last_name"
+      ),
+      Post.find({
+        directedTo: { $in: userFriendList.concat(req.user.id) },
+      })
+        .populate("user")
+        .sort("-timestamp")
+        .limit(25),
+    ]);
+
+    const friendPostIds = friendPosts.map((post) => post._id);
+
+    const comments = await Comment.find({
+      post: { $in: friendPostIds },
+    }).populate({
+      path: "user",
+      select: "first_name last_name username createdAt",
+    });
+
+    const postsWithComments = friendPosts.map((post) => {
+      const postComments = comments.filter((comment) =>
+        comment.post.equals(post._id)
+      );
+      return { ...post.toObject(), comments: postComments };
+    });
+
+    res.send({ friendPosts: postsWithComments, friends: friends });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getPost = async (req, res) => {
