@@ -7,6 +7,7 @@ import { setNotifications } from "./redux/slices/notificationsSlice";
 import CreatePost from "./createPost";
 import Homebar from "./homebar";
 import Friendbar from "./friendBar";
+import Post from "./post";
 
 const Timeline = () => {
   const [posts, setPosts] = useState(null);
@@ -15,6 +16,17 @@ const Timeline = () => {
   const currentUser = useSelector(
     (state) => state.user && state.user.currentUser
   );
+
+  const [currentPostModal, setCurrentPostModal] = useState(null);
+
+  const handleCurrentPostModal = (post) => {
+    setCurrentPostModal(post);
+  };
+
+  const handleClosePostModal = () => {
+    setCurrentPostModal(null);
+    console.log(currentPostModal);
+  };
 
   const dispatch = useDispatch();
 
@@ -64,6 +76,13 @@ const Timeline = () => {
           <Homebar />
         </div>
         <div className="col-7 bg-dark d-flex flex-column">
+          {currentPostModal && (
+            <Post
+              currentPostModal={currentPostModal}
+              handleClosePostModal={handleClosePostModal}
+              username={currentUser}
+            />
+          )}
           <div
             className="align-self-center bg-dark border border-white my-4 pt-3 px-3 rounded d-flex flex-column"
             style={{ width: "75%", color: "white" }}
@@ -106,6 +125,9 @@ const Timeline = () => {
                     <div
                       className="card my-3 bg-secondary"
                       style={{ width: "80%" }}
+                      onClick={(e) => handleCurrentPostModal(element)}
+                      data-toggle="modal"
+                      data-target="#postModal"
                     >
                       {currentUser == element.user.username ? (
                         <div
