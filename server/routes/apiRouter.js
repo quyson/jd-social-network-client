@@ -12,6 +12,7 @@ const search = require("../controllers/search");
 const request = require("../controllers/request");
 const notifications = require("../controllers/notifications");
 const upload = require("../config/upload");
+const Image = require("../models/imageModel");
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -87,12 +88,21 @@ router.post("/upload", upload.single("photo"), (req, res) => {
   const { filename, path } = req.file;
   const postId = req.body.postId;
 
-  fs.unlink(path, (err) => {
-    if (err) {
-      console.error("Error deleting file:", err);
-    }
-    console.log("File deleted successfully");
+  const newImage = new Image({
+    post: postId,
+    filename: filename,
+    path: path,
   });
+
+  newImage
+    .save()
+    .then((result) => {
+      res.send({
+        success: true,
+        message: "Photo successfully uploaded",
+      });
+    })
+    .catch((error) => console.log(error));
 });
 
 module.exports = router;
