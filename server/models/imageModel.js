@@ -2,11 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ImageSchema = new Schema({
-  data: Buffer,
-  filename: String,
-  contentType: String,
-  post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
-  comment: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "Post",
+    required: true,
+  },
+  filename: {
+    type: String,
+    required: true,
+  },
+  path: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Image = mongoose.model("Image", ImageSchema);
