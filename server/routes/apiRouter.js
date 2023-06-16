@@ -11,8 +11,8 @@ const comment = require("../controllers/comment");
 const search = require("../controllers/search");
 const request = require("../controllers/request");
 const notifications = require("../controllers/notifications");
-/* timeline router is gonna make a call for latest posts in user friend list, check if directed to is same as 
-user then that would count as a post, whereas different direct and user would have the write on a wall display*/
+const upload = require("../config/upload");
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -78,6 +78,22 @@ router.patch("/request/accept/:id", isLoggedIn, request.acceptFriendRequest);
 router.post("/createPost", isLoggedIn, post.createPost);
 router.post("/page/createPost/:id", isLoggedIn, post.createPostFriends);
 router.patch("/page/unfriend/:id", isLoggedIn, profile.unfriend);
+
+router.post("/upload", upload.single("photo"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  const { filename, path } = req.file;
+  const postId = req.body.postId;
+
+  fs.unlink(path, (err) => {
+    if (err) {
+      console.error("Error deleting file:", err);
+    }
+    console.log("File deleted successfully");
+  });
+});
 
 module.exports = router;
 
