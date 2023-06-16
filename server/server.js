@@ -24,6 +24,7 @@ app.use(cors());
 app.use(
   session({ secret: sessionSecret, resave: false, saveUninitialized: true })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport");

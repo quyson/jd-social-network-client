@@ -1,8 +1,9 @@
 const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
-const Image = require("../models/imageModel");
-const ProfileImage = require("../models/imageModel");
+const { Image, ProfileImage } = require("../models/imageModel");
+
+const upload = require("../config/upload");
 
 const uploadImage = (req, res) => {
   if (!req.file) {
@@ -79,3 +80,5 @@ const getProfileImage = (req, res) => {
     })
     .catch((error) => console.log(error));
 };
+
+module.exports = { getImage, uploadImage, uploadProfile, getProfileImage };

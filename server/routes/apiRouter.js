@@ -11,8 +11,8 @@ const comment = require("../controllers/comment");
 const search = require("../controllers/search");
 const request = require("../controllers/request");
 const notifications = require("../controllers/notifications");
-const upload = require("../config/upload");
-const Image = require("../models/imageModel");
+const { upload } = require("../config/upload");
+const image = require("../controllers/image");
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -80,31 +80,15 @@ router.post("/createPost", isLoggedIn, post.createPost);
 router.post("/page/createPost/:id", isLoggedIn, post.createPostFriends);
 router.patch("/page/unfriend/:id", isLoggedIn, profile.unfriend);
 
-router.post("/upload", upload.single("photo"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
-  }
-
-  const { filename, path } = req.file;
-  const postId = req.body.postId;
-
-  const newImage = new Image({
-    post: postId,
-    filename: filename,
-    path: path,
-  });
-
-  newImage
-    .save()
-    .then((result) => {
-      res.send({
-        success: true,
-        message: "Photo successfully uploaded",
-      });
-    })
-    .catch((error) => console.log(error));
-});
-
+router.post("/upload", isLoggedIn, upload.single("photo"), image.uploadImage);
+router.get("/upload/:id", isLoggedIn, image.getImage);
+router.post(
+  "/uploadProfile",
+  isLoggedIn,
+  upload.single("photo"),
+  image.uploadProfile
+);
+router.get("/uploadProfile", isLoggedIn, image.getProfileImage);
 module.exports = router;
 
 /* 
