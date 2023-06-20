@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 const { Image, ProfileImage } = require("../models/imageModel");
-
 const upload = require("../config/upload");
 
 const uploadImage = (req, res) => {

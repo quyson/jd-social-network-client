@@ -71,10 +71,10 @@ const createPost = async (req, res) => {
     res.send({
       success: true,
       message: "Created post sucessfully",
+      postId: result._id,
     });
   } catch (error) {
     console.log(error);
-    return next(error);
   }
 };
 
