@@ -184,6 +184,11 @@ const Timeline = () => {
                         </div>
                       </div>
                     )}
+                    {element.picturePath ? (
+                      <div className="card-img-top">
+                        <img src={element.picturePath}></img>
+                      </div>
+                    ) : null}
                     <div className="card-body">
                       <div className="card-text">
                         <div>{element.message}</div>

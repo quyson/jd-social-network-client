@@ -65,6 +65,7 @@ const createPost = async (req, res) => {
     directedTo: req.user.id,
     user: req.user.id,
     likeList: [],
+    picturePath: req.file.path,
   });
   try {
     const result = await newPost.save();
