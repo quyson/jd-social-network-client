@@ -1,7 +1,7 @@
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: "/home/quyson/Desktop/repos/time-capsule/client/public/images",
+  destination: "../client/public/images",
   filename: (req, file, cb) => {
     const filename = file.originalname.replace(/\s/g, "") + "-" + Date.now();
     cb(null, filename);
