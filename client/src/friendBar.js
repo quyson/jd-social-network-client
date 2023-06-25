@@ -16,7 +16,11 @@ const Friendbar = (props) => {
           friends.map((friend) => {
             return (
               <Link to={`/pages/${friend._id}`}>
-                <div className="p-2 font-weight-bold friend">
+                <div className="p-2 font-weight-bold friend d-flex justify-content-start align-items-center">
+                  <div
+                    className="bg-white rounded-circle ml-1 mr-2"
+                    style={{ height: "2rem", width: "2rem" }}
+                  ></div>
                   {friend.first_name + " " + friend.last_name}
                 </div>
               </Link>

@@ -4,6 +4,7 @@ import Logout from "./logout";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Notifications from "./notifications";
+import "./styles.css";
 
 const Navbar = (props) => {
   const [search, setSearch] = useState(null);

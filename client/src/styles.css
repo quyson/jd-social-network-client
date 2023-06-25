@@ -13,7 +13,7 @@
 
 .listElement:hover {
   cursor: pointer;
-  background-color: rgb(177, 177, 177);
+  background-color: rgb(36, 122, 202);
   border-radius: 50px;
 }
 
@@ -46,4 +46,8 @@
 .profile-tab:hover {
   cursor: pointer;
   background-color: rgb(138, 137, 137);
+}
+
+.homebar {
+  background-color: rgb(94, 166, 235);
 }

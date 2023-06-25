@@ -74,7 +74,7 @@ const Timeline = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-3 bg-dark border-right border-white">
+        <div className="col-3 homebar border-right border-white">
           <Homebar />
         </div>
         <div className="col-7 d-flex flex-column align-items-center bg-dark">
@@ -185,7 +185,7 @@ const Timeline = () => {
                       </div>
                     )}
                     {element.picturePath ? (
-                      <div className="card-img-top">
+                      <div className="card-img-top d-flex justify-content-center">
                         <img src={element.picturePath}></img>
                         {console.log(element.picturePath)}
                       </div>
