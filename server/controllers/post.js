@@ -60,6 +60,7 @@ const getPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   const editPath = req.file.path.slice(16);
+  await sharp(req.file.path).resize(800, 600).toFile(req.file.path);
   const newPost = new Post({
     message: req.body.message,
     likes: 0,
