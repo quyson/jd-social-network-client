@@ -167,8 +167,25 @@ const unfriend = async (req, res) => {
   }
 };
 
+const changeProfilePicture = async (req, res) => {
+  const editPath = req.file.path.slice(16);
+  await sharp(req.file.path).resize(800, 600).toFile(req.file.path);
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    { $set: { profilePicture: editPath } }
+  )
+    .then((response) => {
+      res.send({
+        success: true,
+        message: "Successfully changed profile picture",
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
 module.exports = {
   getUserProfile,
   getOthersPage,
   unfriend,
+  changeProfilePicture,
 };

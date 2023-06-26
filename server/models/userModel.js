@@ -10,8 +10,7 @@ const UserSchema = new Schema({
   dob: { type: Date, default: null },
   private: { type: Boolean, required: true },
   profilePicture: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Image",
+    type: String,
     default: null,
   },
   sex: { type: String, enum: ["Male", "Female", "Else"], default: "Else" },

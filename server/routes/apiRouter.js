@@ -79,16 +79,13 @@ router.patch("/request/accept/:id", isLoggedIn, request.acceptFriendRequest);
 router.post("/createPost", isLoggedIn, upload.single("file"), post.createPost);
 router.post("/page/createPost/:id", isLoggedIn, post.createPostFriends);
 router.patch("/page/unfriend/:id", isLoggedIn, profile.unfriend);
-
-router.post("/upload", isLoggedIn, upload.single("photo"), image.uploadImage);
-router.get("/upload/:id", isLoggedIn, image.getImage);
-router.post(
-  "/uploadProfile",
+router.patch(
+  "/profile/picture",
   isLoggedIn,
-  upload.single("photo"),
-  image.uploadProfile
+  upload.single("file"),
+  profile.changeProfilePicture
 );
-router.get("/uploadProfile", isLoggedIn, image.getProfileImage);
+
 module.exports = router;
 
 /* 
